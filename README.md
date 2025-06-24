@@ -77,3 +77,31 @@ Berisi komponen utama untuk menjalankan server HTTP dan menangani komunikasi cli
 - `Tugas2` – Class utama untuk mengeksekusi aplikasi.
 
 ---
+
+## 🗃️ Resource & Library
+
+### 📁 `database`
+- `vbook.db` – File database SQLite yang menyimpan seluruh data.
+- `villa_booking.sql` – Skrip SQL untuk inisialisasi struktur tabel.
+
+### 📁 `lib`
+Berisi seluruh dependensi eksternal yang digunakan, diletakkan secara manual:
+- `jackson-annotations-2.13.3.jar`  
+- `jackson-core-2.13.3.jar`  
+- `jackson-databind-2.13.3.jar`  
+- `sqlite-jdbc-3.36.0.3.jar`  
+
+> Semua `.jar` digunakan untuk memproses JSON (`Jackson`) dan koneksi ke database SQLite (`sqlite-jdbc`).
+
+---
+
+## ▶️ Cara Menjalankan
+
+1. Pastikan Java JDK sudah terinstal.
+2. Jalankan file `Tugas2.java` sebagai program utama.
+3. Akses endpoint API di browser atau Postman melalui:
+   ```
+   http://localhost:8080
+   ```
+
+---
