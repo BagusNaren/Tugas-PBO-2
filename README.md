@@ -26,7 +26,7 @@
 
 ## 📦 Introducing
 
-Tugas ini adalah backend API sederhana yang dibangun menggunakan **Java** tanpa framework eksternal dan menggunakan arsitektur modular berbasis **Handler-DAO-Model**. API ini berfungsi untuk mengelola data berbagai entitas seperti **Villa**, **Customer**, **Booking**, **Voucher**, dan lainnya. API ini mendukung metode HTTP **GET**, **POST**, **PUT**, dan **DELETE**, serta mengembalikan response dalam format **JSON**.
+Halo! Ini adalah tugas backend API sederhana yang dibangun menggunakan **Java** tanpa framework eksternal dan menggunakan arsitektur modular berbasis **Handler-DAO-Model**. API ini berfungsi untuk mengelola data berbagai entitas seperti **Villa**, **Customer**, **Booking**, **Voucher**, dan lainnya. API ini mendukung metode HTTP **GET**, **POST**, **PUT**, dan **DELETE**, serta mengembalikan response dalam format **JSON**.
 
 Penyimpanan data dilakukan menggunakan **SQLite**, dan pengujian dilakukan dengan bantuan aplikasi **Postman** pada endpoint `http://localhost:8080`.
 
@@ -154,5 +154,22 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 | `/vouchers`              | POST   | Menambahkan data voucher baru            |
 | `/vouchers/{id}`         | PUT    | Memperbarui data voucher tertentu        |
 | `/vouchers/{id}`         | DELETE | Menghapus data voucher tertentu          |
+
+---
+
+> 📌 Jangan lupa untuk menyertakan header berikut saat menggunakan metode `POST` dan `PUT`:
+```
+Content-Type: application/json
+```
+
+---
+
+## 📚 Teknologi
+
+- Bahasa Pemrograman: **Java**
+- Database: **SQLite** (`vbook.db`)
+- Library JSON: **Jackson**
+- JDBC Driver: **SQLite JDBC**
+- Tools uji: **Postman**
 
 ---
