@@ -105,3 +105,54 @@ Berisi seluruh dependensi eksternal yang digunakan, diletakkan secara manual:
    ```
 
 ---
+
+## 🧪 Test in Postman
+
+Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah daftar endpoint yang tersedia untuk masing-masing entitas:
+
+### 🏡 VILLA
+
+| Endpoint                                               | Method  | Fungsi                                                             |
+|--------------------------------------------------------|---------|--------------------------------------------------------------------|
+| `/ping`                                                | GET     | Mengecek apakah server aktif                                       |
+| `/villas`                                              | GET     | Menampilkan semua data villa                                       |
+| `/villas/{id}`                                         | GET     | Menampilkan detail sebuah villa berdasarkan ID                     |
+| `/villas/{id}/rooms`                                   | GET     | Menampilkan daftar tipe kamar pada villa tertentu                  |
+| `/villas/{id}/bookings`                                | GET     | Menampilkan semua pemesanan pada villa tertentu                    |
+| `/villas/{id}/reviews`                                 | GET     | Menampilkan semua ulasan untuk villa tertentu                      |
+| `/villas?ci_date={checkin_date}&co_date={checkout_date}` | GET   | Menampilkan villa berdasarkan ketersediaan tanggal check-in/out    |
+| `/villas`                                              | POST    | Menambahkan data villa baru                                        |
+| `/villas/{id}/rooms`                                   | POST    | Menambahkan tipe kamar ke villa                                    |
+| `/villas/{id}`                                         | PUT     | Memperbarui data villa                                             |
+| `/villas/{id}/rooms/{id}`                              | PUT     | Memperbarui tipe kamar tertentu pada villa                         |
+| `/villas/{id}/rooms/{id}`                              | DELETE  | Menghapus tipe kamar tertentu dari villa                           |
+| `/villas/{id}`                                         | DELETE  | Menghapus data villa                                               |
+
+---
+
+### 👤 CUSTOMER
+
+| Endpoint                                       | Method | Fungsi                                                         |
+|------------------------------------------------|--------|----------------------------------------------------------------|
+| `/customers`                                   | GET    | Menampilkan semua data customer                                |
+| `/customers/{id}`                              | GET    | Menampilkan detail customer berdasarkan ID                     |
+| `/customers/{id}/bookings`                     | GET    | Menampilkan semua pemesanan oleh customer tertentu             |
+| `/customers/{id}/reviews`                      | GET    | Menampilkan semua review yang dibuat oleh customer tertentu    |
+| `/customers`                                   | POST   | Menambahkan data customer baru                                 |
+| `/customers/{id}/bookings`                     | POST   | Membuat booking baru oleh customer tertentu                    |
+| `/customers/{id}/bookings/{id}/reviews`        | POST   | Menambahkan review terhadap booking tertentu oleh customer     |
+| `/customers/{id}`                              | PUT    | Memperbarui data customer                                      |
+
+---
+
+### 🎟️ VOUCHER
+
+| Endpoint                  | Method | Fungsi                                   |
+|---------------------------|--------|------------------------------------------|
+| `/vouchers`              | GET    | Menampilkan semua data voucher           |
+| `/vouchers/{id}`         | GET    | Menampilkan detail voucher berdasarkan ID|
+| `/vouchers`              | POST   | Menambahkan data voucher baru            |
+| `/vouchers/{id}`         | PUT    | Memperbarui data voucher tertentu        |
+| `/vouchers/{id}`         | DELETE | Menghapus data voucher tertentu          |
+
+---
