@@ -171,3 +171,5 @@ Content-Type: application/json
 - Tools uji: **Postman**
 
 ---
+
+# Terima kasih telah membaca dokumentasi kami! 🎉
