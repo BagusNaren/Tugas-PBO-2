@@ -72,7 +72,7 @@ Berisi komponen utama untuk menjalankan server HTTP dan menangani komunikasi cli
 - `Request` – Untuk parsing HTTP request dari client.
 - `Response` – Untuk membentuk HTTP response ke client.
 - `Server` – Untuk menjalankan web server lokal pada port `8080`.
-- `Tugas2` – Class utama untuk mengeksekusi aplikasi.
+- `Main` – Class utama untuk mengeksekusi aplikasi.
 
 ---
 
@@ -96,7 +96,7 @@ Berisi seluruh dependensi eksternal yang digunakan, diletakkan secara manual:
 ## ▶️ Cara Menjalankan
 
 1. Pastikan Java JDK sudah terinstal.
-2. Jalankan file `Tugas2.java` sebagai program utama.
+2. Jalankan file `Main.java` sebagai program utama.
 3. Akses endpoint API di browser atau Postman melalui:
    ```
    http://localhost:8080
