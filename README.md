@@ -96,7 +96,7 @@ Folder konfigurasi proyek IntelliJ IDEA:
 - `*.xml` – File konfigurasi proyek dan workspace IntelliJ IDEA.
 - `.gitignore` – Menentukan file/folder yang tidak dimasukkan dalam version control.
 
-### 📄 `Weda villa.iml`
+### 📄 `villa.iml`
 File konfigurasi modul IntelliJ IDEA yang mendefinisikan struktur modul dan dependensi dalam proyek ini.
 
 > Semua `.jar` digunakan untuk memproses JSON (`Jackson`) dan koneksi ke database SQLite (`sqlite-jdbc`).
