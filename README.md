@@ -89,6 +89,16 @@ Berisi seluruh dependensi eksternal yang digunakan, diletakkan secara manual:
 - `jackson-databind-2.13.3.jar`  
 - `sqlite-jdbc-3.36.0.3.jar`  
 
+### 📁 `.idea`
+Folder konfigurasi proyek IntelliJ IDEA:
+- `dataSources/` – Berisi informasi koneksi dan konfigurasi data source ke database `vbook.db`.
+- `libraries/` – Berisi metadata `.xml` untuk referensi library eksternal yang digunakan dalam proyek (`Jackson`, `SQLite JDBC`).
+- `*.xml` – File konfigurasi proyek dan workspace IntelliJ IDEA.
+- `.gitignore` – Menentukan file/folder yang tidak dimasukkan dalam version control.
+
+### 📄 `Weda villa.iml`
+File konfigurasi modul IntelliJ IDEA yang mendefinisikan struktur modul dan dependensi dalam proyek ini.
+
 > Semua `.jar` digunakan untuk memproses JSON (`Jackson`) dan koneksi ke database SQLite (`sqlite-jdbc`).
 
 ---
