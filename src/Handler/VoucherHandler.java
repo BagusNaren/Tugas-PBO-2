@@ -19,35 +19,31 @@ public class VoucherHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void handle(HttpExchange exchange) throws IOException {
-        String method = exchange.getRequestMethod();
-        String path = exchange.getRequestURI().getPath();
         Request req = new Request(exchange);
         Response res = new Response(exchange);
+
+        String method = exchange.getRequestMethod();
+        String path = exchange.getRequestURI().getPath();
         String[] parts = path.split("/");
 
         try {
-            if (parts.length == 2 && parts[1].equals("vouchers")) {
-                if (method.equals("GET")) {
-                    handleGetAll(res);
-                } else if (method.equals("POST")) {
-                    handlePost(req, res);
-                } else {
-                    throw new MethodNotAllowedException("Method " + method + " not allowed on /vouchers");
-                }
-            } else if (parts.length == 3 && parts[1].equals("vouchers")) {
-                int id = parseIdOrThrow(parts[2], "voucher");
-                if (method.equals("GET")) {
-                    handleGetById(id, res);
-                } else if (method.equals("PUT")) {
-                    handlePut(id, req, res);
-                } else if (method.equals("DELETE")) {
-                    handleDelete(id, res);
-                } else {
-                    throw new MethodNotAllowedException("Method " + method + " not allowed on /vouchers/{id}");
-                }
-            } else {
-                throw new NotFoundException("Endpoint " + path + " not found");
+            switch (method.toUpperCase()) {
+                case "GET":
+                    handleGet(parts, res);
+                    break;
+                case "POST":
+                    handlePost(parts, req, res);
+                    break;
+                case "PUT":
+                    handlePut(parts, req, res);
+                    break;
+                case "DELETE":
+                    handleDelete(parts, res);
+                    break;
+                default:
+                    throw new MethodNotAllowedException("Method " + method + " not allowed");
             }
+
         } catch (BadRequestException | IllegalArgumentException e) {
             res.setBody(jsonError(e.getMessage()));
             res.send(HttpURLConnection.HTTP_BAD_REQUEST);
@@ -64,48 +60,70 @@ public class VoucherHandler {
         }
     }
 
-    private static void handleGetAll(Response res) throws IOException {
-        List<Voucher> vouchers = VoucherDAO.getAll();
-        res.setBody(objectMapper.writeValueAsString(vouchers));
-        res.send(HttpURLConnection.HTTP_OK);
-    }
-
-    private static void handlePost(Request req, Response res) throws IOException {
-        Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
-        if (voucher.getCode() == null || voucher.getCode().isEmpty()) {
-            throw new BadRequestException("Voucher code cannot be empty");
+    // ===================== GET =====================
+    private static void handleGet(String[] parts, Response res) throws IOException {
+        if (parts.length == 2 && parts[1].equals("vouchers")) {
+            List<Voucher> vouchers = VoucherDAO.getAll();
+            res.setBody(objectMapper.writeValueAsString(vouchers));
+            res.send(HttpURLConnection.HTTP_OK);
+        } else if (parts.length == 3 && parts[1].equals("vouchers")) {
+            int id = parseIdOrThrow(parts[2], "voucher");
+            Voucher voucher = VoucherDAO.getById(id);
+            if (voucher == null) {
+                throw new NotFoundException("Voucher with ID " + id + " not found");
+            }
+            res.setBody(objectMapper.writeValueAsString(voucher));
+            res.send(HttpURLConnection.HTTP_OK);
+        } else {
+            throw new NotFoundException("Invalid GET path");
         }
-        VoucherDAO.insert(voucher);
-        res.setBody(objectMapper.writeValueAsString(voucher));
-        res.send(HttpURLConnection.HTTP_CREATED);
     }
 
-    private static void handleGetById(int id, Response res) throws IOException {
-        Voucher voucher = VoucherDAO.getById(id);
-        if (voucher == null) {
-            throw new NotFoundException("Voucher with ID " + id + " not found");
+    // ===================== POST =====================
+    private static void handlePost(String[] parts, Request req, Response res) throws IOException {
+        if (parts.length == 2 && parts[1].equals("vouchers")) {
+            Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
+            if (voucher.getCode() == null || voucher.getCode().isEmpty()) {
+                throw new BadRequestException("Voucher code cannot be empty");
+            }
+            VoucherDAO.insert(voucher);
+            res.setBody(objectMapper.writeValueAsString(voucher));
+            res.send(HttpURLConnection.HTTP_CREATED);
+        } else {
+            throw new NotFoundException("Invalid POST path");
         }
-        res.setBody(objectMapper.writeValueAsString(voucher));
-        res.send(HttpURLConnection.HTTP_OK);
     }
 
-    private static void handlePut(int id, Request req, Response res) throws IOException {
-        Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
-        voucher.setId(id);
-        if (voucher.getCode() == null || voucher.getCode().isEmpty()) {
-            throw new BadRequestException("Voucher code cannot be empty");
+    // ===================== PUT =====================
+    private static void handlePut(String[] parts, Request req, Response res) throws IOException {
+        if (parts.length == 3 && parts[1].equals("vouchers")) {
+            int id = parseIdOrThrow(parts[2], "voucher");
+            Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
+            if (voucher.getCode() == null || voucher.getCode().isEmpty()) {
+                throw new BadRequestException("Voucher code cannot be empty");
+            }
+            voucher.setId(id);
+            VoucherDAO.update(voucher);
+            res.setBody(objectMapper.writeValueAsString(voucher));
+            res.send(HttpURLConnection.HTTP_OK);
+        } else {
+            throw new NotFoundException("Invalid PUT path");
         }
-        VoucherDAO.update(voucher);
-        res.setBody(objectMapper.writeValueAsString(voucher));
-        res.send(HttpURLConnection.HTTP_OK);
     }
 
-    private static void handleDelete(int id, Response res) throws IOException {
-        VoucherDAO.delete(id);
-        res.setBody(jsonMessage("Voucher deleted"));
-        res.send(HttpURLConnection.HTTP_OK);
+    // ===================== DELETE =====================
+    private static void handleDelete(String[] parts, Response res) throws IOException {
+        if (parts.length == 3 && parts[1].equals("vouchers")) {
+            int id = parseIdOrThrow(parts[2], "voucher");
+            VoucherDAO.delete(id);
+            res.setBody(jsonMessage("Voucher deleted"));
+            res.send(HttpURLConnection.HTTP_OK);
+        } else {
+            throw new NotFoundException("Invalid DELETE path");
+        }
     }
 
+    // ===================== HELPER =====================
     private static int parseIdOrThrow(String str, String label) {
         try {
             return Integer.parseInt(str);
