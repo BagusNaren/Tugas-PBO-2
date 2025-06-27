@@ -11,8 +11,8 @@ import Model.Booking;
 import Model.Review;
 import Model.RoomType;
 import Model.Villa;
-import Tugas2.Request;
-import Tugas2.Response;
+import Http.Request;
+import Http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 

@@ -2,8 +2,8 @@ package Handler;
 
 import DAO.VoucherDAO;
 import Model.Voucher;
-import Tugas2.Request;
-import Tugas2.Response;
+import Http.Request;
+import Http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import Exception.MethodNotAllowedException;
