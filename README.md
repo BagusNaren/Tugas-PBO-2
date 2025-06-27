@@ -24,7 +24,7 @@
 
 ## 📦 Introducing
 
-Halo! Ini adalah proyek backend API sederhana yang dibangun menggunakan **Java** tanpa framework eksternal dan menggunakan arsitektur modular berbasis **Handler-DAO-Model**, proyek ini kami buat untuk memenuhi Tugas 2 Mata Kuliah Pemrograman Berorientasi Objek (PBO). API ini berfungsi untuk mengelola data berbagai entitas seperti **Villa**, **Customer**, **Booking**, **Voucher**, dan lainnya. API ini mendukung metode HTTP **GET**, **POST**, **PUT**, dan **DELETE**, serta mengembalikan response dalam format **JSON**.
+Halo! Ini adalah proyek backend Application Programming Interface (API) sederhana yang dibangun menggunakan **Java** tanpa framework eksternal dan menggunakan arsitektur modular berbasis **Handler-DAO-Model**, proyek ini kami buat untuk memenuhi Tugas 2 Mata Kuliah Pemrograman Berorientasi Objek (PBO). API ini berfungsi untuk mengelola data berbagai entitas seperti **Villa**, **Customer**, **Booking**, **Voucher**, dan lainnya. API ini mendukung metode Hypertext Transfer Protocol (HTTP) **GET**, **POST**, **PUT**, dan **DELETE**, serta mengembalikan response dalam format **JSON**.
 
 Penyimpanan data dilakukan menggunakan **SQLite**, dan pengujian dilakukan dengan bantuan aplikasi **Postman** pada endpoint `http://localhost:8080`.
 
@@ -80,7 +80,7 @@ Berisi komponen utama untuk menjalankan server HTTP dan menangani komunikasi cli
 
 ### 📁 `database`
 - `vbook.db` – File database SQLite yang menyimpan seluruh data.
-- `villa_booking.sql` – Skrip SQL untuk inisialisasi struktur tabel.
+- `villa_booking.sql` – Skrip Structured Query Language (SQL) untuk inisialisasi struktur tabel.
 
 ### 📁 `lib`
 Berisi seluruh dependensi eksternal yang digunakan, diletakkan secara manual:
@@ -98,7 +98,7 @@ File konfigurasi modul IntelliJ IDEA yang mendefinisikan struktur modul dan depe
 
 ## ▶️ Cara Menjalankan
 
-1. Pastikan Java JDK sudah terinstal.
+1. Pastikan Java Java Development Kit (JDK) sudah terinstal.
 2. Jalankan file `Main.java` sebagai program utama.
 3. Akses endpoint API di browser atau Postman melalui:
    ```
