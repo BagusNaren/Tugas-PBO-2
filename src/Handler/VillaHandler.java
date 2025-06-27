@@ -34,16 +34,21 @@ public class VillaHandler {
         String[] parts = path.split("/");
 
         try {
-            if (method.equals("GET")) {
-                handleGet(parts, req, res);
-            } else if (method.equals("POST")) {
-                handlePost(parts, req, res);
-            } else if (method.equals("PUT")) {
-                handlePut(parts, req, res);
-            } else if (method.equals("DELETE")) {
-                handleDelete(parts, res);
-            } else {
-                throw new MethodNotAllowedException("Method " + method + " not allowed");
+            switch (method) {
+                case "GET":
+                    handleGet(parts, req, res);
+                    break;
+                case "POST":
+                    handlePost(parts, req, res);
+                    break;
+                case "PUT":
+                    handlePut(parts, req, res);
+                    break;
+                case "DELETE":
+                    handleDelete(parts, res);
+                    break;
+                default:
+                    throw new MethodNotAllowedException("Method " + method + " not allowed");
             }
         } catch (SQLException e) {
             e.printStackTrace();
