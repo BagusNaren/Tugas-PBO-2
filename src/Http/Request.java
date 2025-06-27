@@ -1,4 +1,4 @@
-package Tugas2;
+package Http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
