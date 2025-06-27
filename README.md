@@ -98,7 +98,7 @@ File konfigurasi modul IntelliJ IDEA yang mendefinisikan struktur modul dan depe
 
 ## ▶️ Cara Menjalankan
 
-1. Pastikan Java Java Development Kit (JDK) sudah terinstal.
+1. Pastikan Java Development Kit (JDK) sudah terinstal.
 2. Jalankan file `Main.java` sebagai program utama.
 3. Akses endpoint API di browser atau Postman melalui:
    ```
