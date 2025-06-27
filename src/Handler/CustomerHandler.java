@@ -54,10 +54,8 @@ public class CustomerHandler {
                 code = HttpURLConnection.HTTP_NOT_FOUND;
             } else if (e instanceof BadRequestException) {
                 code = HttpURLConnection.HTTP_BAD_REQUEST;
-            } else if (e instanceof MethodNotAllowedException) {
-                code = HttpURLConnection.HTTP_BAD_METHOD;
             } else {
-                code = HttpURLConnection.HTTP_INTERNAL_ERROR;
+                code = HttpURLConnection.HTTP_BAD_METHOD;
             }
             res.send(code);
         } catch (Exception e) {
