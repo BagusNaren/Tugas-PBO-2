@@ -24,7 +24,7 @@
 
 ## 📦 Introducing
 
-Halo! Ini adalah tugas backend API sederhana yang dibangun menggunakan **Java** tanpa framework eksternal dan menggunakan arsitektur modular berbasis **Handler-DAO-Model**. API ini berfungsi untuk mengelola data berbagai entitas seperti **Villa**, **Customer**, **Booking**, **Voucher**, dan lainnya. API ini mendukung metode HTTP **GET**, **POST**, **PUT**, dan **DELETE**, serta mengembalikan response dalam format **JSON**.
+Halo! Ini adalah proyek backend API sederhana yang dibangun menggunakan **Java** tanpa framework eksternal dan menggunakan arsitektur modular berbasis **Handler-DAO-Model**, proyek ini kami buat untuk memenuhi Tugas 2 Mata Kuliah Pemrograman Berorientasi Objek (PBO). API ini berfungsi untuk mengelola data berbagai entitas seperti **Villa**, **Customer**, **Booking**, **Voucher**, dan lainnya. API ini mendukung metode HTTP **GET**, **POST**, **PUT**, dan **DELETE**, serta mengembalikan response dalam format **JSON**.
 
 Penyimpanan data dilakukan menggunakan **SQLite**, dan pengujian dilakukan dengan bantuan aplikasi **Postman** pada endpoint `http://localhost:8080`.
 
