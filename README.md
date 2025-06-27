@@ -67,7 +67,7 @@ Berisi representasi dari setiap entitas di database dalam bentuk class Java, dig
 - `Villa`
 - `Voucher`
 
-#### ➤ `Tugas2`
+#### ➤ `Http`
 Berisi komponen utama untuk menjalankan server HTTP dan menangani komunikasi client-server:
 - `Request` – Untuk parsing HTTP request dari client.
 - `Response` – Untuk membentuk HTTP response ke client.
