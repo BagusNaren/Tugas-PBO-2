@@ -175,4 +175,77 @@ Content-Type: application/json
 
 ---
 
+## Documentation in postman
+
+Aplikasi ini sudah bisa dijalankan pada `localhost:8080` , dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
+
+
+### 🔍 GET in Customers
+
+Menampilkan daftar semua customer
+`http://localhost:8080/customers`
+![image](https://github.com/user-attachments/assets/94f9fadf-ec5f-476f-8aa3-41ac9bab2b58)
+
+Menampilkan informasi detail seorang customer
+`http://localhost:8080/customers/{id}`
+![image](https://github.com/user-attachments/assets/09c86260-e39b-4398-b024-bb45dd472a32)
+
+Menampilkan daftar booking yang telah dilakukan oleh seorang customer
+`http://localhost:8080/customers/{id}/bookings`
+![image](https://github.com/user-attachments/assets/00313d74-714d-4497-9adb-0c2f85cf98fd)
+
+Menampilkan daftar ulasan yang telah diberikan oleh customer
+`http://localhost:8080/customers/{id}/reviews`
+![image](https://github.com/user-attachments/assets/79ff1feb-e3e6-41dd-bfbe-bef4c06fb347)
+
+### ➕ POST in Customers
+
+Menambahkan customer baru (registrasi customer)
+`http://localhost:8080/customers`
+![image](https://github.com/user-attachments/assets/2190bf47-f0f4-46d1-be68-c9735aaf1311)
+
+Customer melakukan pemesanan vila
+`http://localhost:8080/customers/{id}/bookings`
+![image](https://github.com/user-attachments/assets/bde24302-712f-4b18-a109-8b669db25691)
+
+Customer memberikan ulasan pada vila (berdasarkan informasi booking)
+`http://localhost:8080/customers/{id}/bookings/{id}/reviews`
+![image](https://github.com/user-attachments/assets/0381bf66-227e-42d7-ba88-9e8549a57eea)
+
+### ✏️ PUT in Customers
+
+Mengubah data seorang customer
+`http://localhost:8080/customers/{id}`
+![image](https://github.com/user-attachments/assets/9064b560-1ac6-407e-bc85-ecfdde7ce4d4)
+
+---
+### 🔍 GET in Voucher
+
+Menampilkan daftar semua voucher
+`http://localhost:8080/vouchers`
+![image](https://github.com/user-attachments/assets/fe9d3308-a583-4a0d-9c96-66aefbf210e8)
+
+Menampilkan informasi detail suatu voucher
+`http://localhost:8080/vouchers/{id}`
+![image](https://github.com/user-attachments/assets/a4f7f7e1-6f2b-45a5-a7a4-d837ed9779f1)
+
+### ➕ POST in Voucher
+
+Membuat voucher baru
+`http://localhost:8080/vouchers`
+![image](https://github.com/user-attachments/assets/0daa0dc5-70e9-45f2-8643-9799878e88c8)
+
+### ✏️ PUT in Voucher
+
+Mengubah data suatu voucher
+`http://localhost:8080/vouchers/{id}`
+![image](https://github.com/user-attachments/assets/f8450af1-bd43-4f32-a2bc-fba082e578c3)
+
+### 🗑️ DELETE in Voucher
+
+Menghapus data suatu voucher
+`http://localhost:8080/vouchers/{id}`
+![image](https://github.com/user-attachments/assets/9ddfb831-c5b5-4bf8-913a-2b327ed5001b)
+
+
 # Terima kasih telah membaca dokumentasi kami! 🎉
