@@ -158,24 +158,7 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 
 ---
 
-> 📌 Jangan lupa untuk menyertakan header berikut saat menggunakan metode `POST` dan `PUT`:
-```
-Content-Type: application/json
-```
-
----
-
-## 📚 Teknologi
-
-- Bahasa Pemrograman: **Java**
-- Database: **SQLite** (`vbook.db`)
-- Library JSON: **Jackson**
-- JDBC Driver: **SQLite JDBC**
-- Tools uji: **Postman**
-
----
-
-## Documentation in postman
+## 📷 Documentation in Postman
 
 Aplikasi ini sudah bisa dijalankan pada `localhost:8080` , dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
 
@@ -247,5 +230,23 @@ Menghapus data suatu voucher
 `http://localhost:8080/vouchers/{id}`
 ![image](https://github.com/user-attachments/assets/9ddfb831-c5b5-4bf8-913a-2b327ed5001b)
 
+---
+
+> 📌 Jangan lupa untuk menyertakan header berikut saat menggunakan metode `POST` dan `PUT`:
+```
+Content-Type: application/json
+```
+
+---
+
+## 📚 Teknologi
+
+- Bahasa Pemrograman: **Java**
+- Database: **SQLite** (`vbook.db`)
+- Library JSON: **Jackson**
+- JDBC Driver: **SQLite JDBC**
+- Tools uji: **Postman**
+
+---
 
 # Terima kasih telah membaca dokumentasi kami! 🎉
