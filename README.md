@@ -290,6 +290,13 @@ Menghapus data suatu voucher
 
 ---
 
+### ❌ Error Response 404
+Ketika melakukan perubahan data pada entitas (seperti melakukan DELETE), tetapi entitasnya tidak ada
+`http://localhost:8080/villas/{id}`
+![Screenshot 2025-06-30 171649](https://github.com/user-attachments/assets/8500e76e-065a-4054-83f3-e5efb2be4e0d)
+
+---
+
 > 📌 Jangan lupa untuk menyertakan header berikut saat menggunakan metode `POST` dan `PUT`:
 ```
 Content-Type: application/json
