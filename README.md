@@ -162,6 +162,78 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 
 Aplikasi ini sudah bisa dijalankan pada `localhost:8080` , dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
 
+### 🔍 GET in Villas
+Menampilkan semua daftar villa
+`http://localhost:8080/villas`
+![Screenshot 2025-06-30 122226](https://github.com/user-attachments/assets/ad3e323b-0dca-44a2-b178-ebe07697100e)
+
+Mencoba test ping pada villa
+` http://localhost:8080/ping`
+![image](https://github.com/user-attachments/assets/4d8ea741-7d7b-43c1-97a5-7504eeda63c0)
+
+Menampilkan villa sesuai dengan id
+`http://localhost:8080/villas/1`
+![image](https://github.com/user-attachments/assets/789674e8-5f6c-4c8a-8f47-7bf1d1a93284)
+
+Menampilkan isi dari ruangan villa sesuai dengan ID villa
+`http://localhost:8080/villas/1/rooms`
+![image](https://github.com/user-attachments/assets/37e4d3c9-a590-425c-93b9-61b71eaa7d08)
+
+Menampilkan data booking pada Villa yang memiliki ID 1 
+`http://localhost:8080/villas/1/bookings`
+![image](https://github.com/user-attachments/assets/f27f817e-9855-4d4e-8890-0e4e4a595cfd)
+
+Menampilkan isi riview dari Villa berdasarkan id Villa
+`http://localhost:8080/villas/1/reviews`
+![image](https://github.com/user-attachments/assets/8fef7505-1ed0-4fe3-bb43-3fabb3fc1522)
+
+Menampilkan info taggal checkin dan chekout dari data villa booking
+` http://localhost:8080/villas?ci_date=2025-06-20&co_date=2025-06-25`
+![image](https://github.com/user-attachments/assets/0af394a3-11f7-4495-9419-cd995fc08e0b)
+
+
+### ➕ POST in Villas
+Menambahkan Villa baru
+`http://localhost:8080/villas`
+![image](https://github.com/user-attachments/assets/6f175cbc-a783-4f84-a28c-baaaa208f867)
+
+Menambahkan Ruangan Villa baru
+`http://localhost:8080/villas/1/rooms`
+![image](https://github.com/user-attachments/assets/876661a6-2b0a-42a4-b9c9-c5eea459e34b)
+
+
+### ✏️ PUT in Villas
+Mengubah isi data villa 
+`http://localhost:8080/villas/1`
+![image](https://github.com/user-attachments/assets/d720a5fb-ec77-4b22-b8cb-351bc79a11e4)
+
+Mengubah isi data ruangan Villa
+`http://localhost:8080/villas/1/rooms/1`
+![image](https://github.com/user-attachments/assets/dfb04181-5c8e-4064-abad-757e7a6161d0)
+
+
+### 🗑️ DELETE in Villa
+Menghapus Villa
+``
+
+
+Menghapus ruangan Villa
+`http://localhost:8080/villas/1/rooms/1`
+![image](https://github.com/user-attachments/assets/0ff3e522-b2ad-494b-9bd6-c965f406dc0e)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 🔍 GET in Customers
 
