@@ -288,6 +288,11 @@ Ketika melakukan perubahan data pada entitas (seperti melakukan DELETE), tetapi 
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-06-30 171649](https://github.com/user-attachments/assets/8500e76e-065a-4054-83f3-e5efb2be4e0d)
 
+### 🚫 Error Response 405
+Melakukan method selain GET, POST, PUT, dan DELETE (seperti melakukan PATCH)
+`http://localhost:8080/villas/{id}`
+![Screenshot 2025-06-30 173009](https://github.com/user-attachments/assets/2634c69e-9035-4535-be38-0f730733c286)
+
 ---
 
 > 📌 Jangan lupa untuk menyertakan header berikut saat menggunakan metode `POST` dan `PUT`:
