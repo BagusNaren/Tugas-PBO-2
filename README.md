@@ -211,29 +211,12 @@ Mengubah isi data ruangan Villa
 `http://localhost:8080/villas/1/rooms/1`
 ![image](https://github.com/user-attachments/assets/dfb04181-5c8e-4064-abad-757e7a6161d0)
 
-
 ### 🗑️ DELETE in Villa
-Menghapus Villa
-``
-
-
 Menghapus ruangan Villa
 `http://localhost:8080/villas/1/rooms/1`
 ![image](https://github.com/user-attachments/assets/0ff3e522-b2ad-494b-9bd6-c965f406dc0e)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 ### 🔍 GET in Customers
 
@@ -274,6 +257,7 @@ Mengubah data seorang customer
 ![image](https://github.com/user-attachments/assets/9064b560-1ac6-407e-bc85-ecfdde7ce4d4)
 
 ---
+
 ### 🔍 GET in Voucher
 
 Menampilkan daftar semua voucher
