@@ -191,7 +191,6 @@ Menampilkan info taggal checkin dan chekout dari data villa booking
 ` http://localhost:8080/villas?ci_date=2025-06-20&co_date=2025-06-25`
 ![image](https://github.com/user-attachments/assets/0af394a3-11f7-4495-9419-cd995fc08e0b)
 
-
 ### ➕ POST in Villas
 Menambahkan Villa baru
 `http://localhost:8080/villas`
@@ -200,7 +199,6 @@ Menambahkan Villa baru
 Menambahkan Ruangan Villa baru
 `http://localhost:8080/villas/1/rooms`
 ![image](https://github.com/user-attachments/assets/876661a6-2b0a-42a4-b9c9-c5eea459e34b)
-
 
 ### ✏️ PUT in Villas
 Mengubah isi data villa 
@@ -215,6 +213,10 @@ Mengubah isi data ruangan Villa
 Menghapus ruangan Villa
 `http://localhost:8080/villas/1/rooms/1`
 ![image](https://github.com/user-attachments/assets/0ff3e522-b2ad-494b-9bd6-c965f406dc0e)
+
+Menghapus data villa
+`http://localhost:8080/villas/1`
+![Screenshot 2025-06-30 165856](https://github.com/user-attachments/assets/c8888e85-7f1d-4e44-a203-b66a6780af5a)
 
 ---
 
