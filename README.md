@@ -162,6 +162,13 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 
 Aplikasi ini sudah bisa dijalankan pada `localhost:8080` , dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
 
+### 🔍 GET in Default Handler
+Mencoba test GET pada default handler <br>
+`http://localhost:8080/`
+![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
+
+---
+
 ### 🔍 GET in Villas
 Menampilkan semua daftar villa <br>
 `http://localhost:8080/villas`
