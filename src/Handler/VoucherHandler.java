@@ -44,18 +44,20 @@ public class VoucherHandler {
                     throw new MethodNotAllowedException("Method " + method + " not allowed");
             }
 
-        } catch (BadRequestException | IllegalArgumentException e) {
-            res.setBody(jsonError(e.getMessage()));
-            res.send(HttpURLConnection.HTTP_BAD_REQUEST);
-        } catch (NotFoundException e) {
-            res.setBody(jsonError(e.getMessage()));
-            res.send(HttpURLConnection.HTTP_NOT_FOUND);
-        } catch (MethodNotAllowedException e) {
-            res.setBody(jsonError(e.getMessage()));
-            res.send(HttpURLConnection.HTTP_BAD_METHOD);
+        } catch (NotFoundException | BadRequestException | MethodNotAllowedException e) {
+            res.setBody("{\"error\": \"" + e.getMessage() + "\"}");
+            int code;
+            if (e instanceof NotFoundException) {
+                code = HttpURLConnection.HTTP_NOT_FOUND;
+            } else if (e instanceof BadRequestException) {
+                code = HttpURLConnection.HTTP_BAD_REQUEST;
+            } else {
+                code = HttpURLConnection.HTTP_BAD_METHOD;
+            }
+            res.send(code);
         } catch (Exception e) {
             e.printStackTrace();
-            res.setBody(jsonError("Internal server error: " + e.getMessage()));
+            res.setBody("{\"error\": \"" + e.getMessage() + "\"}");
             res.send(HttpURLConnection.HTTP_INTERNAL_ERROR);
         }
     }
@@ -67,11 +69,7 @@ public class VoucherHandler {
             res.setBody(objectMapper.writeValueAsString(vouchers));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 3 && parts[1].equals("vouchers")) {
-            int id = parseIdOrThrow(parts[2], "voucher");
-            Voucher voucher = VoucherDAO.getById(id);
-            if (voucher == null) {
-                throw new NotFoundException("Voucher with ID " + id + " not found");
-            }
+            Voucher voucher = getVoucherOrThrow(parts[2]);
             res.setBody(objectMapper.writeValueAsString(voucher));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
@@ -83,11 +81,9 @@ public class VoucherHandler {
     private static void handlePost(String[] parts, Request req, Response res) throws IOException {
         if (parts.length == 2 && parts[1].equals("vouchers")) {
             Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
-            if (voucher.getCode() == null || voucher.getCode().isEmpty()) {
-                throw new BadRequestException("Voucher code cannot be empty");
-            }
+            validateVoucher(voucher);
             VoucherDAO.insert(voucher);
-            res.setBody(objectMapper.writeValueAsString(voucher));
+            res.setBody("{\"message\": \"Voucher added successfully\"}");
             res.send(HttpURLConnection.HTTP_CREATED);
         } else {
             throw new NotFoundException("Invalid POST path");
@@ -99,12 +95,10 @@ public class VoucherHandler {
         if (parts.length == 3 && parts[1].equals("vouchers")) {
             int id = parseIdOrThrow(parts[2], "voucher");
             Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
-            if (voucher.getCode() == null || voucher.getCode().isEmpty()) {
-                throw new BadRequestException("Voucher code cannot be empty");
-            }
+            validateVoucher(voucher);
             voucher.setId(id);
             VoucherDAO.update(voucher);
-            res.setBody(objectMapper.writeValueAsString(voucher));
+            res.setBody("{\"message\": \"Voucher updated successfully\"}");
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid PUT path");
@@ -112,11 +106,13 @@ public class VoucherHandler {
     }
 
     // ===================== DELETE =====================
-    private static void handleDelete(String[] parts, Response res) throws IOException {
+    private static void handleDelete(String[] parts, Response res) {
         if (parts.length == 3 && parts[1].equals("vouchers")) {
             int id = parseIdOrThrow(parts[2], "voucher");
+            Voucher voucher = VoucherDAO.getById(id);
+            if (voucher == null) throw new NotFoundException("Voucher not found");
             VoucherDAO.delete(id);
-            res.setBody(jsonMessage("Voucher deleted"));
+            res.setBody("{\"message\": \"Voucher deleted successfully\"}");
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid DELETE path");
@@ -124,19 +120,36 @@ public class VoucherHandler {
     }
 
     // ===================== HELPER =====================
-    private static int parseIdOrThrow(String str, String label) {
+    private static int parseIdOrThrow(String value, String label) {
         try {
-            return Integer.parseInt(str);
+            return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            throw new BadRequestException("Invalid " + label + " ID");
+            throw new BadRequestException("Invalid " + label + " ID: must be an integer");
         }
     }
 
-    private static String jsonError(String msg) {
-        return "{\"error\": \"" + msg.replace("\"", "'") + "\"}";
+    private static Voucher getVoucherOrThrow(String idStr) {
+        int id = parseIdOrThrow(idStr, "voucher");
+        Voucher voucher = VoucherDAO.getById(id);
+        if (voucher == null) throw new NotFoundException("Voucher not found");
+        return voucher;
     }
 
-    private static String jsonMessage(String msg) {
-        return "{\"message\": \"" + msg.replace("\"", "'") + "\"}";
+    private static void validateVoucher(Voucher voucher) {
+        if (voucher.getCode() == null || voucher.getCode().isBlank()) {
+            throw new BadRequestException("Voucher code is required");
+        }
+        if (voucher.getDescription() == null || voucher.getDescription().isBlank()) {
+            throw new BadRequestException("Voucher description is required");
+        }
+        if (voucher.getDiscount() <= 0 || voucher.getDiscount() > 1) {
+            throw new BadRequestException("Discount must be between 0 and 1");
+        }
+        if (voucher.getStartDate() == null || voucher.getStartDate().isBlank()) {
+            throw new BadRequestException("Start date is required");
+        }
+        if (voucher.getEndDate() == null || voucher.getEndDate().isBlank()) {
+            throw new BadRequestException("End date is required");
+        }
     }
 }
