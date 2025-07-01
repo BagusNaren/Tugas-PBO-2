@@ -162,7 +162,7 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 
 Aplikasi ini sudah bisa dijalankan pada `localhost:8080` , dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
 
-### 🔍 GET in Default Handler
+### 🌐 GET in Default Handler
 Mencoba test GET pada default handler <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
@@ -178,7 +178,7 @@ Mencoba test ping pada villa <br>
 ` http://localhost:8080/ping`
 ![image](https://github.com/user-attachments/assets/4d8ea741-7d7b-43c1-97a5-7504eeda63c0)
 
-Menampilkan villa sesuai dengan id <br>
+Menampilkan villa sesuai dengan ID <br>
 `http://localhost:8080/villas/{id}`
 ![image](https://github.com/user-attachments/assets/789674e8-5f6c-4c8a-8f47-7bf1d1a93284)
 
@@ -186,24 +186,24 @@ Menampilkan isi dari ruangan villa sesuai dengan ID villa <br>
 `http://localhost:8080/villas/{id}/rooms`
 ![image](https://github.com/user-attachments/assets/37e4d3c9-a590-425c-93b9-61b71eaa7d08)
 
-Menampilkan data booking pada Villa yang memiliki ID 1 <br>
+Menampilkan data booking pada villa yang memiliki ID 1 <br>
 `http://localhost:8080/villas/{id}/bookings`
 ![image](https://github.com/user-attachments/assets/f27f817e-9855-4d4e-8890-0e4e4a595cfd)
 
-Menampilkan isi riview dari Villa berdasarkan id Villa <br>
+Menampilkan isi review dari villa berdasarkan ID villa <br>
 `http://localhost:8080/villas/{id}/reviews`
 ![image](https://github.com/user-attachments/assets/8fef7505-1ed0-4fe3-bb43-3fabb3fc1522)
 
-Menampilkan info taggal checkin dan chekout dari data villa booking <br>
+Menampilkan info tanggal check-in dan chek-out dari data villa booking <br>
 ` http://localhost:8080/villas?ci_date=2025-06-20&co_date=2025-06-25`
 ![image](https://github.com/user-attachments/assets/0af394a3-11f7-4495-9419-cd995fc08e0b)
 
 ### ➕ POST in Villas
-Menambahkan Villa baru <br>
+Menambahkan villa baru <br>
 `http://localhost:8080/villas`
 ![image](https://github.com/user-attachments/assets/6f175cbc-a783-4f84-a28c-baaaa208f867)
 
-Menambahkan Ruangan Villa baru <br>
+Menambahkan ruangan villa baru <br>
 `http://localhost:8080/villas/{id}/rooms`
 ![image](https://github.com/user-attachments/assets/876661a6-2b0a-42a4-b9c9-c5eea459e34b)
 
@@ -212,7 +212,7 @@ Mengubah isi data villa  <br>
 `http://localhost:8080/villas/{id}`
 ![image](https://github.com/user-attachments/assets/d720a5fb-ec77-4b22-b8cb-351bc79a11e4)
 
-Mengubah isi data ruangan Villa <br>
+Mengubah isi data ruangan villa <br>
 `http://localhost:8080/villas/{id}/rooms/{id}`
 ![image](https://github.com/user-attachments/assets/dfb04181-5c8e-4064-abad-757e7a6161d0)
 
@@ -291,6 +291,10 @@ Menghapus data suatu voucher <br>
 ---
 
 ### ❌ Error Response 404
+Ketika melihat informasi detail suatu entitas (seperti pada Villa), tetapi ID entitasnya tidak ada <br>
+`http://localhost:8080/villas/{id}`
+![Screenshot 2025-07-01 101736](https://github.com/user-attachments/assets/50eb4253-dd50-497d-a5f0-c0b4495e8801)
+
 Ketika melakukan perubahan data pada entitas (seperti melakukan DELETE), tetapi entitasnya tidak ada <br>
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-06-30 171649](https://github.com/user-attachments/assets/8500e76e-065a-4054-83f3-e5efb2be4e0d)
