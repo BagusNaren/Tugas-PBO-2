@@ -1,4 +1,4 @@
-# Java Backend API | Sistem Pemesanan Villa
+![Screenshot 2025-07-01 102859](https://github.com/user-attachments/assets/7b5fb661-ff4d-40bf-89ef-56153ef46f1d)# Java Backend API | Sistem Pemesanan Villa
 
 ---
 
@@ -160,7 +160,7 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 
 ## 📷 Documentation in Postman
 
-Aplikasi ini sudah bisa dijalankan pada `localhost:8080` , dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
+Aplikasi ini sudah bisa dijalankan pada `localhost:8080`, dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
 
 ### 🌐 GET in Default Handler
 Mencoba test GET pada default handler <br>
@@ -194,7 +194,7 @@ Menampilkan isi review dari villa berdasarkan ID villa <br>
 `http://localhost:8080/villas/{id}/reviews`
 ![image](https://github.com/user-attachments/assets/8fef7505-1ed0-4fe3-bb43-3fabb3fc1522)
 
-Menampilkan info tanggal check-in dan chek-out dari data villa booking <br>
+Menampilkan info tanggal check-in dan check-out dari data villa booking <br>
 ` http://localhost:8080/villas?ci_date=2025-06-20&co_date=2025-06-25`
 ![image](https://github.com/user-attachments/assets/0af394a3-11f7-4495-9419-cd995fc08e0b)
 
@@ -216,7 +216,7 @@ Mengubah isi data ruangan villa <br>
 `http://localhost:8080/villas/{id}/rooms/{id}`
 ![image](https://github.com/user-attachments/assets/dfb04181-5c8e-4064-abad-757e7a6161d0)
 
-### 🗑️ DELETE in Villa
+### 🗑️ DELETE in Villas
 Menghapus ruangan Villa <br>
 `http://localhost:8080/villas/{id}/rooms/{id}`
 ![image](https://github.com/user-attachments/assets/0ff3e522-b2ad-494b-9bd6-c965f406dc0e)
@@ -264,7 +264,7 @@ Mengubah data seorang customer <br>
 
 ---
 
-### 🔍 GET in Voucher
+### 🔍 GET in Vouchers
 Menampilkan daftar semua voucher <br>
 `http://localhost:8080/vouchers`
 ![image](https://github.com/user-attachments/assets/fe9d3308-a583-4a0d-9c96-66aefbf210e8)
@@ -273,25 +273,30 @@ Menampilkan informasi detail suatu voucher <br>
 `http://localhost:8080/vouchers/{id}`
 ![image](https://github.com/user-attachments/assets/a4f7f7e1-6f2b-45a5-a7a4-d837ed9779f1)
 
-### ➕ POST in Voucher
+### ➕ POST in Vouchers
 Membuat voucher baru <br>
 `http://localhost:8080/vouchers`
 ![image](https://github.com/user-attachments/assets/0daa0dc5-70e9-45f2-8643-9799878e88c8)
 
-### ✏️ PUT in Voucher
+### ✏️ PUT in Vouchers
 Mengubah data suatu voucher <br>
 `http://localhost:8080/vouchers/{id}`
 ![image](https://github.com/user-attachments/assets/f8450af1-bd43-4f32-a2bc-fba082e578c3)
 
-### 🗑️ DELETE in Voucher
+### 🗑️ DELETE in Vouchers
 Menghapus data suatu voucher <br>
 `http://localhost:8080/vouchers/{id}`
 ![image](https://github.com/user-attachments/assets/9ddfb831-c5b5-4bf8-913a-2b327ed5001b)
 
 ---
 
+### 🛑 Error Response 400
+Ketika membuat entitas baru (seperti melakukan POST pada villa), namun terdapat data yang tidak lengkap
+`http://localhost:8080/villas`
+![Screenshot 2025-07-01 102859](https://github.com/user-attachments/assets/bc21106e-5f55-4d68-bef2-1bb0bb585959)
+
 ### ❌ Error Response 404
-Ketika melihat informasi detail suatu entitas (seperti pada Villa), tetapi ID entitasnya tidak ada <br>
+Ketika melihat informasi detail suatu entitas (seperti pada villa), tetapi ID entitasnya tidak ada <br>
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-07-01 101736](https://github.com/user-attachments/assets/50eb4253-dd50-497d-a5f0-c0b4495e8801)
 
