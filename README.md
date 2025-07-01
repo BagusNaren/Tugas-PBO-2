@@ -295,6 +295,14 @@ Ketika membuat entitas baru (seperti melakukan POST pada villa), namun terdapat 
 `http://localhost:8080/villas`
 ![Screenshot 2025-07-01 102859](https://github.com/user-attachments/assets/bc21106e-5f55-4d68-bef2-1bb0bb585959)
 
+Ketika membuat customer, namun data nomor telepon (phone) tidak lengkap
+`http://localhost:8080/customers`
+![Screenshot 2025-07-01 105715](https://github.com/user-attachments/assets/56a46b09-2590-4626-af4b-5c8cef0e4ba2)
+
+Ketika membuat customer, namun data email tidak lengkap
+`http://localhost:8080/customers`
+![Screenshot 2025-07-01 110028](https://github.com/user-attachments/assets/fbf22807-9e3d-439c-ba9d-39307f71bed4)
+
 ### ❌ Error Response 404
 Ketika melihat informasi detail suatu entitas (seperti pada villa), tetapi ID entitasnya tidak ada <br>
 `http://localhost:8080/villas/{id}`
