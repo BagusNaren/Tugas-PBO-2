@@ -1,4 +1,4 @@
-![Screenshot 2025-07-01 102859](https://github.com/user-attachments/assets/7b5fb661-ff4d-40bf-89ef-56153ef46f1d)# Java Backend API | Sistem Pemesanan Villa
+# Java Backend API | Sistem Pemesanan Villa
 
 ---
 
