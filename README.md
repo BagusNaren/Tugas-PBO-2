@@ -293,7 +293,7 @@ Menghapus data suatu voucher <br>
 ### 🛑 Error Response 400
 Ketika membuat entitas baru (seperti melakukan POST pada villa), namun terdapat data yang tidak lengkap
 `http://localhost:8080/villas`
-![Screenshot 2025-07-01 102859](https://github.com/user-attachments/assets/bc21106e-5f55-4d68-bef2-1bb0bb585959)
+![Screenshot 2025-07-01 194057](https://github.com/user-attachments/assets/fc809648-a451-4632-b6f3-b939ee4d8841)
 
 Ketika membuat customer, namun data nomor telepon (phone) tidak lengkap
 `http://localhost:8080/customers`
