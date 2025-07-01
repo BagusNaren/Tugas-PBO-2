@@ -172,5 +172,11 @@ public class CustomerHandler {
         if (customer.getName() == null || customer.getName().isBlank()) {
             throw new BadRequestException("Customer name is required");
         }
+        if (customer.getEmail() == null || customer.getEmail().isBlank()) {
+            throw new BadRequestException("Customer email is required");
+        }
+        if (customer.getPhone() == null || customer.getPhone().isBlank()) {
+            throw new BadRequestException("Customer phone number is required");
+        }
     }
 }
