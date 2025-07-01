@@ -114,7 +114,7 @@ public class VillaHandler {
         String body = req.getBody();
         if (parts.length == 2) {
             Villa villa = objectMapper.readValue(body, Villa.class);
-            if (isInvalid(villa)) throw new BadRequestException("Invalid villa data");
+            validateVilla(villa);
             VillaDAO.insert(villa);
             res.setBody(objectMapper.writeValueAsString(villa));
             res.send(HttpURLConnection.HTTP_CREATED);
@@ -136,7 +136,7 @@ public class VillaHandler {
             int id = parseIdOrThrow(parts[2], "villa");
             Villa villa = objectMapper.readValue(body, Villa.class);
             villa.setId(id);
-            if (isInvalid(villa)) throw new BadRequestException("Invalid villa data");
+            validateVilla(villa);
             boolean updated = VillaDAO.update(villa);
             if (!updated) throw new NotFoundException("Villa not found");
             res.setBody(objectMapper.writeValueAsString(villa));
@@ -182,10 +182,25 @@ public class VillaHandler {
         }
     }
 
-    private static boolean isInvalid(Villa v) {
-        return v.getName() == null || v.getName().isBlank() ||
-                v.getDescription() == null || v.getDescription().isBlank() ||
-                v.getAddress() == null || v.getAddress().isBlank();
+    private static void validateVilla(Villa v) {
+        if (v.getName() == null || v.getName().isBlank()) {
+            throw new BadRequestException("Villa name is required");
+        }
+        if (v.getName().length() > 100) {
+            throw new BadRequestException("Villa name must not exceed 100 characters");
+        }
+        if (v.getDescription() == null || v.getDescription().isBlank()) {
+            throw new BadRequestException("Villa description is required");
+        }
+        if (v.getDescription().length() > 500) {
+            throw new BadRequestException("Villa description must not exceed 500 characters");
+        }
+        if (v.getAddress() == null || v.getAddress().isBlank()) {
+            throw new BadRequestException("Villa address is required");
+        }
+        if (v.getAddress().length() > 255) {
+            throw new BadRequestException("Villa address must not exceed 255 characters");
+        }
     }
 
     private static String jsonError(String msg) {
