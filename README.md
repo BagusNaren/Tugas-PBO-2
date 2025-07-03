@@ -276,6 +276,7 @@ Menampilkan informasi detail suatu voucher <br>
 ### ➕ POST in Vouchers
 Membuat voucher baru <br>
 `http://localhost:8080/vouchers`
+![Screenshot 2025-07-03 181907](https://github.com/user-attachments/assets/3a94304e-b90d-446d-852f-38c5ee811dfe)
 
 ### ✏️ PUT in Vouchers
 Mengubah data suatu voucher <br>
