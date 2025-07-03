@@ -312,7 +312,7 @@ Ketika melakukan perubahan data pada entitas (seperti melakukan DELETE), tetapi 
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-06-30 171649](https://github.com/user-attachments/assets/8500e76e-065a-4054-83f3-e5efb2be4e0d)
 
-Ketika user mengakses endpoint yang tidak tersedia (seperti /test), maka sistem akan merespons dengan error 404 bahwa endpoint tidak ditemukan
+Ketika user mengakses endpoint yang tidak tersedia (seperti /test), maka sistem akan merespons dengan error 404 bahwa endpoint tidak ditemukan <br>
 `http://localhost:8080/test`
 ![Screenshot 2025-07-04 001919](https://github.com/user-attachments/assets/4c12740d-fc41-4a2f-9b94-d139833ec4bc)
 
