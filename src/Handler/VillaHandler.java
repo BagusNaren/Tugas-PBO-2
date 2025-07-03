@@ -21,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class VillaHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -34,7 +35,7 @@ public class VillaHandler {
         String[] parts = path.split("/");
 
         try {
-            switch (method) {
+            switch (method.toUpperCase()) {
                 case "GET":
                     handleGet(parts, req, res);
                     break;
@@ -52,7 +53,7 @@ public class VillaHandler {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            res.setBody("{\"error\": \"Internal server error\"}");
+            res.setBody(jsonError("Internal server error"));
             res.send(HttpURLConnection.HTTP_INTERNAL_ERROR);
         } catch (NotFoundException e) {
             res.setBody(jsonError(e.getMessage()));
@@ -75,36 +76,39 @@ public class VillaHandler {
             Map<String, String> q = req.getQueryParams();
             if (q.containsKey("ci_date") && q.containsKey("co_date")) {
                 List<Villa> available = VillaDAO.getAvailable(q.get("ci_date"), q.get("co_date"));
-                res.setBody(objectMapper.writeValueAsString(available));
+                if (available.isEmpty()) throw new NotFoundException("No available villas found");
+                res.setBody(jsonResponse("Available villas retrieved successfully", available));
             } else {
                 List<Villa> villas = VillaDAO.getAll();
-                res.setBody(objectMapper.writeValueAsString(villas));
+                if (villas.isEmpty()) throw new NotFoundException("No villas found");
+                res.setBody(jsonResponse("Villas retrieved successfully", villas));
             }
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 3) {
             int id = parseIdOrThrow(parts[2], "villa");
             Villa villa = VillaDAO.getById(id);
             if (villa == null) throw new NotFoundException("Villa not found");
-            res.setBody(objectMapper.writeValueAsString(villa));
+            res.setBody(jsonResponse("Villa retrieved successfully", villa));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 4) {
             int villaId = parseIdOrThrow(parts[2], "villa");
             String subPath = parts[3];
             if ("rooms".equals(subPath)) {
                 List<RoomType> rooms = RoomTypesDAO.getByVillaId(villaId);
-                res.setBody(objectMapper.writeValueAsString(rooms));
-                res.send(HttpURLConnection.HTTP_OK);
+                if (rooms.isEmpty()) throw new NotFoundException("No rooms found");
+                res.setBody(jsonResponse("Rooms retrieved successfully", rooms));
             } else if ("bookings".equals(subPath)) {
                 List<Booking> bookings = BookingDAO.getAllByVilla(villaId);
-                res.setBody(objectMapper.writeValueAsString(bookings));
-                res.send(HttpURLConnection.HTTP_OK);
+                if (bookings.isEmpty()) throw new NotFoundException("No bookings found");
+                res.setBody(jsonResponse("Bookings retrieved successfully", bookings));
             } else if ("reviews".equals(subPath)) {
                 List<Review> reviews = ReviewDAO.getAllByVillaId(villaId);
-                res.setBody(objectMapper.writeValueAsString(reviews));
-                res.send(HttpURLConnection.HTTP_OK);
+                if (reviews.isEmpty()) throw new NotFoundException("No reviews found");
+                res.setBody(jsonResponse("Reviews retrieved successfully", reviews));
             } else {
                 throw new NotFoundException("Unknown GET path");
             }
+            res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid GET path");
         }
@@ -116,14 +120,14 @@ public class VillaHandler {
             Villa villa = objectMapper.readValue(body, Villa.class);
             validateVilla(villa);
             VillaDAO.insert(villa);
-            res.setBody(objectMapper.writeValueAsString(villa));
+            res.setBody(jsonResponse("Villa added successfully", villa));
             res.send(HttpURLConnection.HTTP_CREATED);
         } else if (parts.length == 4 && "rooms".equals(parts[3])) {
             int villaId = parseIdOrThrow(parts[2], "villa");
             RoomType room = objectMapper.readValue(body, RoomType.class);
             room.setVilla(villaId);
             RoomTypesDAO.insert(room);
-            res.setBody(objectMapper.writeValueAsString(room));
+            res.setBody(jsonResponse("Room added successfully", room));
             res.send(HttpURLConnection.HTTP_CREATED);
         } else {
             throw new NotFoundException("Invalid POST path");
@@ -139,7 +143,7 @@ public class VillaHandler {
             validateVilla(villa);
             boolean updated = VillaDAO.update(villa);
             if (!updated) throw new NotFoundException("Villa not found");
-            res.setBody(objectMapper.writeValueAsString(villa));
+            res.setBody(jsonResponse("Villa updated successfully", villa));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 5 && "rooms".equals(parts[3])) {
             int villaId = parseIdOrThrow(parts[2], "villa");
@@ -149,25 +153,25 @@ public class VillaHandler {
             room.setVilla(villaId);
             boolean updated = RoomTypesDAO.update(room);
             if (!updated) throw new NotFoundException("Room not found");
-            res.setBody(objectMapper.writeValueAsString(room));
+            res.setBody(jsonResponse("Room updated successfully", room));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid PUT path");
         }
     }
 
-    private static void handleDelete(String[] parts, Response res) throws SQLException {
+    private static void handleDelete(String[] parts, Response res) throws SQLException, IOException {
         if (parts.length == 3) {
             int id = parseIdOrThrow(parts[2], "villa");
             boolean deleted = VillaDAO.delete(id);
             if (!deleted) throw new NotFoundException("Villa not found");
-            res.setBody(jsonMessage("Villa deleted"));
+            res.setBody(jsonResponse("Villa deleted successfully", null));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 5 && "rooms".equals(parts[3])) {
             int roomId = parseIdOrThrow(parts[4], "room");
             boolean deleted = RoomTypesDAO.delete(roomId);
             if (!deleted) throw new NotFoundException("Room not found");
-            res.setBody(jsonMessage("Room deleted"));
+            res.setBody(jsonResponse("Room deleted successfully", null));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid DELETE path");
@@ -203,11 +207,16 @@ public class VillaHandler {
         }
     }
 
-    private static String jsonError(String msg) {
-        return "{\"error\": \"" + msg.replace("\"", "'") + "\"}";
+    private static String jsonResponse(String message, Object data) throws IOException {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("message", message);
+        result.put("data", data);
+        return objectMapper.writeValueAsString(result);
     }
 
-    private static String jsonMessage(String msg) {
-        return "{\"message\": \"" + msg.replace("\"", "'") + "\"}";
+    private static String jsonError(String msg) throws IOException {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("error", msg);
+        return objectMapper.writeValueAsString(result);
     }
 }
