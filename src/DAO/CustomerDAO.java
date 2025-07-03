@@ -36,7 +36,7 @@ public class CustomerDAO {
 
         try (
                 Connection conn = Database.connect();
-                PreparedStatement stmt = conn.prepareStatement(sql)
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -61,12 +61,26 @@ public class CustomerDAO {
 
         try (
                 Connection conn = Database.connect();
-                PreparedStatement stmt = conn.prepareStatement(sql)
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             stmt.setString(1, customer.getName());
             stmt.setString(2, customer.getEmail());
             stmt.setString(3, customer.getPhone());
-            stmt.executeUpdate();
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Inserting customer failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    customer.setId(generatedKeys.getInt(1)); // Set ID ke objek
+                } else {
+                    throw new SQLException("Inserting customer failed, no ID obtained.");
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
