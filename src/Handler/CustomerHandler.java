@@ -17,6 +17,7 @@ import Exception.BadRequestException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 public class CustomerHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -46,44 +47,41 @@ public class CustomerHandler {
                 default:
                     throw new MethodNotAllowedException("Method " + method + " not allowed");
             }
-
-        } catch (NotFoundException | BadRequestException | MethodNotAllowedException e) {
-            res.setBody("{\"error\": \"" + e.getMessage() + "\"}");
-            int code;
-            if (e instanceof NotFoundException) {
-                code = HttpURLConnection.HTTP_NOT_FOUND;
-            } else if (e instanceof BadRequestException) {
-                code = HttpURLConnection.HTTP_BAD_REQUEST;
-            } else {
-                code = HttpURLConnection.HTTP_BAD_METHOD;
-            }
-            res.send(code);
+        } catch (NotFoundException e) {
+            res.setBody(jsonError(e.getMessage()));
+            res.send(HttpURLConnection.HTTP_NOT_FOUND);
+        } catch (BadRequestException e) {
+            res.setBody(jsonError(e.getMessage()));
+            res.send(HttpURLConnection.HTTP_BAD_REQUEST);
+        } catch (MethodNotAllowedException e) {
+            res.setBody(jsonError(e.getMessage()));
+            res.send(HttpURLConnection.HTTP_BAD_METHOD);
         } catch (Exception e) {
             e.printStackTrace();
-            res.setBody("{\"error\": \"" + e.getMessage() + "\"}");
+            res.setBody(jsonError("Internal server error: " + e.getMessage()));
             res.send(HttpURLConnection.HTTP_INTERNAL_ERROR);
         }
     }
 
-    // ===================== GET =====================
+    // ========== GET ==========
     private static void handleGet(String[] parts, Response res) throws IOException {
         if (parts.length == 2) {
             List<Customer> customers = CustomerDAO.getAll();
-            res.setBody(objectMapper.writeValueAsString(customers));
+            res.setBody(jsonResponse("Customers retrieved successfully", customers));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 3) {
             Customer customer = getCustomerOrThrow(parts[2]);
-            res.setBody(objectMapper.writeValueAsString(customer));
+            res.setBody(jsonResponse("Customer retrieved successfully", customer));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 4) {
             int customerId = parseIdOrThrow(parts[2], "customer");
-            if (parts[3].equals("bookings")) {
+            if ("bookings".equals(parts[3])) {
                 List<Booking> bookings = BookingDAO.getAllByCustomer(customerId);
-                res.setBody(objectMapper.writeValueAsString(bookings));
+                res.setBody(jsonResponse("Bookings retrieved successfully", bookings));
                 res.send(HttpURLConnection.HTTP_OK);
-            } else if (parts[3].equals("reviews")) {
+            } else if ("reviews".equals(parts[3])) {
                 List<Review> reviews = ReviewDAO.getAllByCustomerId(customerId);
-                res.setBody(objectMapper.writeValueAsString(reviews));
+                res.setBody(jsonResponse("Reviews retrieved successfully", reviews));
                 res.send(HttpURLConnection.HTTP_OK);
             } else {
                 throw new NotFoundException("Invalid GET path");
@@ -93,37 +91,37 @@ public class CustomerHandler {
         }
     }
 
-    // ===================== POST =====================
+    // ========== POST ==========
     private static void handlePost(String[] parts, Request req, Response res) throws IOException {
         String body = req.getBody();
         if (parts.length == 2) {
             Customer customer = objectMapper.readValue(body, Customer.class);
             validateCustomer(customer);
             CustomerDAO.insert(customer);
-            res.setBody("{\"message\": \"Customer added successfully\"}");
+            res.setBody(jsonResponse("Customer added successfully", customer));
             res.send(HttpURLConnection.HTTP_CREATED);
-        } else if (parts.length == 4 && parts[3].equals("bookings")) {
+        } else if (parts.length == 4 && "bookings".equals(parts[3])) {
             int customerId = parseIdOrThrow(parts[2], "customer");
             Booking booking = objectMapper.readValue(body, Booking.class);
             booking.setCustomerId(customerId);
             BookingDAO.insert(booking);
-            res.setBody("{\"message\": \"Booking added successfully\"}");
+            res.setBody(jsonResponse("Booking added successfully", booking));
             res.send(HttpURLConnection.HTTP_CREATED);
-        } else if (parts.length == 6 && parts[3].equals("bookings") && parts[5].equals("reviews")) {
+        } else if (parts.length == 6 && "bookings".equals(parts[3]) && "reviews".equals(parts[5])) {
             int customerId = parseIdOrThrow(parts[2], "customer");
             int bookingId = parseIdOrThrow(parts[4], "booking");
             Review review = objectMapper.readValue(body, Review.class);
             review.setCustomerId(customerId);
             review.setBookingId(bookingId);
             ReviewDAO.insert(review);
-            res.setBody("{\"message\": \"Review added successfully\"}");
+            res.setBody(jsonResponse("Review added successfully", review));
             res.send(HttpURLConnection.HTTP_CREATED);
         } else {
             throw new NotFoundException("Invalid POST path");
         }
     }
 
-    // ===================== PUT =====================
+    // ========== PUT ==========
     private static void handlePut(String[] parts, Request req, Response res) throws IOException {
         if (parts.length == 3) {
             int customerId = parseIdOrThrow(parts[2], "customer");
@@ -131,28 +129,28 @@ public class CustomerHandler {
             validateCustomer(customer);
             customer.setId(customerId);
             CustomerDAO.update(customer);
-            res.setBody("{\"message\": \"Customer updated successfully\"}");
+            res.setBody(jsonResponse("Customer updated successfully", customer));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid PUT path");
         }
     }
 
-    // ===================== DELETE =====================
-    private static void handleDelete(String[] parts, Response res) {
+    // ========== DELETE ==========
+    private static void handleDelete(String[] parts, Response res) throws IOException {
         if (parts.length == 3) {
             int customerId = parseIdOrThrow(parts[2], "customer");
             Customer customer = CustomerDAO.getById(customerId);
             if (customer == null) throw new NotFoundException("Customer not found");
             CustomerDAO.delete(customerId);
-            res.setBody("{\"message\": \"Customer deleted successfully\"}");
+            res.setBody(jsonResponse("Customer deleted successfully", customer));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid DELETE path");
         }
     }
 
-    // ===================== HELPER =====================
+    // ========== HELPERS ==========
     private static int parseIdOrThrow(String value, String label) {
         try {
             return Integer.parseInt(value);
@@ -169,14 +167,27 @@ public class CustomerHandler {
     }
 
     private static void validateCustomer(Customer customer) {
-        if (customer.getName() == null || customer.getName().isBlank()) {
+        if (customer.getName() == null || customer.getName().trim().isEmpty()) {
             throw new BadRequestException("Customer name is required");
         }
-        if (customer.getEmail() == null || customer.getEmail().isBlank()) {
+        if (customer.getEmail() == null || customer.getEmail().trim().isEmpty()) {
             throw new BadRequestException("Customer email is required");
         }
-        if (customer.getPhone() == null || customer.getPhone().isBlank()) {
+        if (customer.getPhone() == null || customer.getPhone().trim().isEmpty()) {
             throw new BadRequestException("Customer phone number is required");
         }
+    }
+
+    private static String jsonResponse(String message, Object data) throws IOException {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("message", message);
+        result.put("data", data);
+        return objectMapper.writeValueAsString(result);
+    }
+
+    private static String jsonError(String message) throws IOException {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("error", message);
+        return objectMapper.writeValueAsString(result);
     }
 }
