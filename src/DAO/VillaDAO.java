@@ -9,28 +9,19 @@ public class VillaDAO {
 
     public static List<Villa> getAll() {
         List<Villa> villas = new ArrayList<>();
-        System.out.println(">> DAO: Memanggil getAll()");
+        String sql = "SELECT * FROM villas";
 
-        try (Connection conn = Database.connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM villas")) {
+        try (Connection conn = Database.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String description = rs.getString("description");
-                String address = rs.getString("address");
-
-                System.out.printf(">> Villa DB: id=%d, name=%s%n", id, name);
-
-                Villa villa = new Villa(id, name, description, address);
-                villas.add(villa);
+                villas.add(mapRow(rs));
             }
 
-            System.out.println(">> DAO: Total villa ditemukan: " + villas.size());
-
         } catch (SQLException e) {
-            System.err.println(">> DAO ERROR: Gagal ambil data villa");
             e.printStackTrace();
-            throw new RuntimeException("Gagal query SELECT * FROM villas", e);
+            throw new RuntimeException("Failed to retrieve villas", e);
         }
 
         return villas;
@@ -46,34 +37,44 @@ public class VillaDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return new Villa(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getString("address")
-                );
+                return mapRow(rs);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to get villa by ID", e);
         }
 
         return null;
     }
 
-    public static void insert(Villa villa) {
+    public static Villa insert(Villa villa) {
         String sql = "INSERT INTO villas (name, description, address) VALUES (?, ?, ?)";
 
         try (Connection conn = Database.connect();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, villa.getName());
             stmt.setString(2, villa.getDescription());
             stmt.setString(3, villa.getAddress());
-            stmt.executeUpdate();
+
+            int affected = stmt.executeUpdate();
+            if (affected == 0) {
+                throw new SQLException("Inserting villa failed, no rows affected.");
+            }
+
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    villa.setId(keys.getInt(1));
+                    return villa;
+                } else {
+                    throw new SQLException("Inserting villa failed, no ID obtained.");
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to insert villa", e);
         }
     }
 
@@ -92,9 +93,8 @@ public class VillaDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to update villa", e);
         }
-
-        return false;
     }
 
     public static boolean delete(int id) {
@@ -108,15 +108,13 @@ public class VillaDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Failed to delete villa", e);
         }
-
-        return false;
     }
 
-    public static List<Villa> getAvailable(String ciDate, String coDate) throws SQLException {
+    public static List<Villa> getAvailable(String ciDate, String coDate) {
         List<Villa> available = new ArrayList<>();
 
-        Connection conn = Database.connect();
         String sql = "SELECT DISTINCT v.* " +
                 "FROM villas v " +
                 "WHERE v.id NOT IN ( " +
@@ -125,25 +123,32 @@ public class VillaDAO {
                 "  WHERE NOT (b.checkout_date <= ? OR b.checkin_date >= ?) " +
                 ")";
 
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, ciDate); // checkout_date <= checkin permintaan → tidak bentrok
-        stmt.setString(2, coDate); // checkin_date >= checkout permintaan → tidak bentrok
+        try (Connection conn = Database.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Villa v = new Villa(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("description"),
-                    rs.getString("address")
-            );
-            available.add(v);
+            stmt.setString(1, ciDate);
+            stmt.setString(2, coDate);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    available.add(mapRow(rs));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to get available villas", e);
         }
 
-        rs.close();
-        stmt.close();
-        conn.close();
-
         return available;
+    }
+
+    private static Villa mapRow(ResultSet rs) throws SQLException {
+        return new Villa(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getString("address")
+        );
     }
 }
