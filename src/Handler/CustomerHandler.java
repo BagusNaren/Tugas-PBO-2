@@ -75,6 +75,9 @@ public class CustomerHandler {
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 4) {
             int customerId = parseIdOrThrow(parts[2], "customer");
+            Customer customer = CustomerDAO.getById(customerId);
+            if (customer == null) throw new NotFoundException("Customer with ID " + customerId + " not found");
+
             if ("bookings".equals(parts[3])) {
                 List<Booking> bookings = BookingDAO.getAllByCustomer(customerId);
                 res.setBody(jsonResponse("Bookings retrieved successfully", bookings));
@@ -102,6 +105,8 @@ public class CustomerHandler {
             res.send(HttpURLConnection.HTTP_CREATED);
         } else if (parts.length == 4 && "bookings".equals(parts[3])) {
             int customerId = parseIdOrThrow(parts[2], "customer");
+            Customer customer = CustomerDAO.getById(customerId);
+            if (customer == null) throw new NotFoundException("Customer not found");
             Booking booking = objectMapper.readValue(body, Booking.class);
             booking.setCustomerId(customerId);
             BookingDAO.insert(booking);
@@ -110,6 +115,8 @@ public class CustomerHandler {
         } else if (parts.length == 6 && "bookings".equals(parts[3]) && "reviews".equals(parts[5])) {
             int customerId = parseIdOrThrow(parts[2], "customer");
             int bookingId = parseIdOrThrow(parts[4], "booking");
+            Customer customer = CustomerDAO.getById(customerId);
+            if (customer == null) throw new NotFoundException("Customer not found");
             Review review = objectMapper.readValue(body, Review.class);
             review.setCustomerId(customerId);
             review.setBookingId(bookingId);
@@ -125,6 +132,10 @@ public class CustomerHandler {
     private static void handlePut(String[] parts, Request req, Response res) throws IOException {
         if (parts.length == 3) {
             int customerId = parseIdOrThrow(parts[2], "customer");
+            Customer existingCustomer = CustomerDAO.getById(customerId);
+            if (existingCustomer == null) {
+                throw new NotFoundException("Customer not found");
+            }
             Customer customer = objectMapper.readValue(req.getBody(), Customer.class);
             validateCustomer(customer);
             customer.setId(customerId);
