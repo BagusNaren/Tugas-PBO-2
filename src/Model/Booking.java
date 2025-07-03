@@ -13,10 +13,10 @@ public class Booking {
     private boolean checkedIn;
     private boolean checkedOut;
 
-    // Constructor kosong
+    // constructor kosong
     public Booking() {}
 
-    // Constructor lengkap
+    // constructor lengkap
     public Booking(
             int id, int customerId, int roomTypeId, String checkinDate, String checkoutDate,
             int price, int voucherId, int finalPrice, String paymentStatus,
@@ -35,7 +35,7 @@ public class Booking {
         this.checkedOut = checkedOut;
     }
 
-    // Getters
+    // getters
     public int getId() {
         return id;
     }
