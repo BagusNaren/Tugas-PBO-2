@@ -160,7 +160,7 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 
 ## 📷 Documentation in Postman
 
-Aplikasi ini sudah bisa dijalankan pada `localhost:8080`, dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman postman: 
+Aplikasi ini sudah bisa dijalankan pada `localhost:8080`, dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman Postman: 
 
 ### 🌐 GET in Default Handler
 Mencoba test GET pada default handler <br>
@@ -208,7 +208,7 @@ Menambahkan ruangan villa baru <br>
 ![image](https://github.com/user-attachments/assets/876661a6-2b0a-42a4-b9c9-c5eea459e34b)
 
 ### ✏️ PUT in Villas
-Mengubah isi data villa  <br>
+Mengubah isi data villa <br>
 `http://localhost:8080/villas/{id}`
 ![image](https://github.com/user-attachments/assets/d720a5fb-ec77-4b22-b8cb-351bc79a11e4)
 
@@ -217,7 +217,7 @@ Mengubah isi data ruangan villa <br>
 ![image](https://github.com/user-attachments/assets/dfb04181-5c8e-4064-abad-757e7a6161d0)
 
 ### 🗑️ DELETE in Villas
-Menghapus ruangan Villa <br>
+Menghapus ruangan villa <br>
 `http://localhost:8080/villas/{id}/rooms/{id}`
 ![image](https://github.com/user-attachments/assets/0ff3e522-b2ad-494b-9bd6-c965f406dc0e)
 
