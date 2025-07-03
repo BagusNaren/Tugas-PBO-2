@@ -230,37 +230,38 @@ Menghapus data villa <br>
 ### 🔍 GET in Customers
 Menampilkan daftar semua customer <br>
 `http://localhost:8080/customers`
-![image](https://github.com/user-attachments/assets/94f9fadf-ec5f-476f-8aa3-41ac9bab2b58)
+![image](https://github.com/user-attachments/assets/abf25bac-0ed2-4a0f-a15c-0d2c12d639cb)
 
 Menampilkan informasi detail seorang customer <br>
 `http://localhost:8080/customers/{id}`
-![image](https://github.com/user-attachments/assets/09c86260-e39b-4398-b024-bb45dd472a32)
+![image](https://github.com/user-attachments/assets/0394092d-07e7-4459-a687-6dd73cba704e)
 
 Menampilkan daftar booking yang telah dilakukan oleh seorang customer <br>
 `http://localhost:8080/customers/{id}/bookings`
-![image](https://github.com/user-attachments/assets/00313d74-714d-4497-9adb-0c2f85cf98fd)
+![image](https://github.com/user-attachments/assets/fac8ba48-3497-4fac-932d-9fd22d25ca2e)
 
 Menampilkan daftar ulasan yang telah diberikan oleh customer <br>
 `http://localhost:8080/customers/{id}/reviews`
-![image](https://github.com/user-attachments/assets/79ff1feb-e3e6-41dd-bfbe-bef4c06fb347)
+![image](https://github.com/user-attachments/assets/12a07e64-363c-4236-90e5-3814b24119ef)
+
 
 ### ➕ POST in Customers
 Menambahkan customer baru (registrasi customer) <br>
 `http://localhost:8080/customers`
-![image](https://github.com/user-attachments/assets/2190bf47-f0f4-46d1-be68-c9735aaf1311)
+![image](https://github.com/user-attachments/assets/3344d4b3-ec1c-4714-8d7b-2a39e265f932)
 
 Customer melakukan pemesanan villa <br>
 `http://localhost:8080/customers/{id}/bookings`
-![image](https://github.com/user-attachments/assets/bde24302-712f-4b18-a109-8b669db25691)
+![image](https://github.com/user-attachments/assets/85177533-235c-436a-aa2e-15a269753616)
 
 Customer memberikan ulasan pada villa (berdasarkan informasi booking) <br>
 `http://localhost:8080/customers/{id}/bookings/{id}/reviews`
-![image](https://github.com/user-attachments/assets/0381bf66-227e-42d7-ba88-9e8549a57eea)
+![image](https://github.com/user-attachments/assets/edd15aca-1ec1-4592-b16f-e774ff31a61b)
 
 ### ✏️ PUT in Customers
 Mengubah data seorang customer <br>
 `http://localhost:8080/customers/{id}`
-![image](https://github.com/user-attachments/assets/9064b560-1ac6-407e-bc85-ecfdde7ce4d4)
+![image](https://github.com/user-attachments/assets/278623d5-e9b3-4d27-a78f-7676dd951d4c)
 
 ---
 
