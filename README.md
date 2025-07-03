@@ -291,33 +291,37 @@ Menghapus data suatu voucher <br>
 ---
 
 ### 🛑 Error Response 400
-Ketika membuat entitas baru (seperti melakukan POST pada villa), namun terdapat data yang tidak lengkap
+Ketika membuat entitas baru (seperti melakukan **POST** pada villa), namun terdapat data yang tidak lengkap <br>
 `http://localhost:8080/villas`
 ![Screenshot 2025-07-01 194057](https://github.com/user-attachments/assets/fc809648-a451-4632-b6f3-b939ee4d8841)
 
-Ketika membuat customer, namun data nomor telepon (phone) tidak lengkap
+Ketika membuat customer, namun data nomor telepon (phone) tidak lengkap <br>
 `http://localhost:8080/customers`
 ![Screenshot 2025-07-01 105715](https://github.com/user-attachments/assets/56a46b09-2590-4626-af4b-5c8cef0e4ba2)
 
-Ketika membuat customer, namun data email tidak lengkap
+Ketika membuat customer, namun data email tidak lengkap <br>
 `http://localhost:8080/customers`
 ![Screenshot 2025-07-01 110028](https://github.com/user-attachments/assets/fbf22807-9e3d-439c-ba9d-39307f71bed4)
+
+Ketika user mengakses endpoint `/villas/{id}` dengan ID yang tidak valid atau tidak sesuai data yang tersedia (seperti `/villas/test`), maka sistem akan merespons dengan error response 400 dan pesan "Invalid villa ID" <br>
+`http://localhost:8080/villas/test`
+![Screenshot 2025-07-04 022351](https://github.com/user-attachments/assets/834554a4-65ec-4ab6-8c10-ad177e234309)
 
 ### ❌ Error Response 404
 Ketika melihat informasi detail suatu entitas (seperti pada villa), tetapi ID entitasnya tidak ada <br>
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-07-01 101736](https://github.com/user-attachments/assets/50eb4253-dd50-497d-a5f0-c0b4495e8801)
 
-Ketika melakukan perubahan data pada entitas (seperti melakukan DELETE), tetapi entitasnya tidak ada <br>
+Ketika melakukan perubahan data pada entitas (seperti melakukan **DELETE**), tetapi entitasnya tidak ada <br>
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-06-30 171649](https://github.com/user-attachments/assets/8500e76e-065a-4054-83f3-e5efb2be4e0d)
 
-Ketika user mengakses endpoint yang tidak tersedia (seperti /test), maka sistem akan merespons dengan error 404 bahwa endpoint tidak ditemukan <br>
+Ketika user mengakses endpoint yang tidak tersedia (seperti `/test`), maka sistem akan merespons dengan error 404 bahwa endpoint tidak ditemukan <br>
 `http://localhost:8080/test`
 ![Screenshot 2025-07-04 001919](https://github.com/user-attachments/assets/4c12740d-fc41-4a2f-9b94-d139833ec4bc)
 
 ### 🚫 Error Response 405
-Melakukan method selain GET, POST, PUT, dan DELETE (seperti melakukan PATCH) <br>
+Melakukan method selain **GET**, **POST**, **PUT**, dan **DELETE** (seperti melakukan **PATCH**) <br>
 `http://localhost:8080/villas/{id}`
 ![Screenshot 2025-06-30 173009](https://github.com/user-attachments/assets/2634c69e-9035-4535-be38-0f730733c286)
 
