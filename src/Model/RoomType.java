@@ -16,7 +16,7 @@ public class RoomType {
     private boolean hasHotwater;
     private boolean hasFridge;
 
-    // Getter & Setter
+    // getter & setter
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
