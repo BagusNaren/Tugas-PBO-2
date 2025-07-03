@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpServer;
 import Handler.VillaHandler;
 import Handler.CustomerHandler;
 import Handler.VoucherHandler;
+import Exception.NotFoundException;
 
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -19,7 +20,14 @@ public class Server {
 
     private static class RequestHandler implements HttpHandler {
         public void handle(HttpExchange httpExchange) {
-            Server.processHttpExchange(httpExchange);
+            try {
+                Server.processHttpExchange(httpExchange);
+            } catch (NotFoundException e) {
+                sendErrorResponse(httpExchange, 404, e.getMessage());
+            } catch (Exception e) {
+                sendErrorResponse(httpExchange, 500, "Internal Server Error");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -57,6 +65,15 @@ public class Server {
         String path = uri.getPath();
         String method = httpExchange.getRequestMethod();
 
+        // Validasi endpoint tidak dikenali → lempar NotFoundException
+        if (!(path.startsWith("/villas") ||
+                path.startsWith("/customers") ||
+                path.startsWith("/vouchers") ||
+                path.equals("/ping") ||
+                path.equals("/"))) {
+            throw new NotFoundException("Endpoint " + path + " not found");
+        }
+
         // Logging tambahan
         System.out.println("========== Incoming Request ==========");
         System.out.println("Method: " + method);
@@ -85,6 +102,24 @@ public class Server {
 
             res.setBody(resJson);
             res.send(HttpURLConnection.HTTP_OK);
+        }
+    }
+
+    private static void sendErrorResponse(HttpExchange exchange, int statusCode, String message) {
+        try {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", message);
+            String json = new ObjectMapper().writeValueAsString(error);
+
+            exchange.getResponseHeaders().add("Content-Type", "application/json");
+            exchange.sendResponseHeaders(statusCode, json.getBytes().length);
+            exchange.getResponseBody().write(json.getBytes());
+        } catch (Exception e) {
+            System.out.println("Gagal kirim response error: " + e.getMessage());
+        } finally {
+            try {
+                exchange.getResponseBody().close();
+            } catch (Exception ignored) {}
         }
     }
 }
