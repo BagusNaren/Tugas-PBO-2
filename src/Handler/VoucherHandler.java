@@ -13,6 +13,7 @@ import Exception.BadRequestException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 public class VoucherHandler {
 
@@ -44,20 +45,18 @@ public class VoucherHandler {
                     throw new MethodNotAllowedException("Method " + method + " not allowed");
             }
 
-        } catch (NotFoundException | BadRequestException | MethodNotAllowedException e) {
-            res.setBody("{\"error\": \"" + e.getMessage() + "\"}");
-            int code;
-            if (e instanceof NotFoundException) {
-                code = HttpURLConnection.HTTP_NOT_FOUND;
-            } else if (e instanceof BadRequestException) {
-                code = HttpURLConnection.HTTP_BAD_REQUEST;
-            } else {
-                code = HttpURLConnection.HTTP_BAD_METHOD;
-            }
-            res.send(code);
+        } catch (NotFoundException e) {
+            res.setBody(jsonError(e.getMessage()));
+            res.send(HttpURLConnection.HTTP_NOT_FOUND);
+        } catch (BadRequestException e) {
+            res.setBody(jsonError(e.getMessage()));
+            res.send(HttpURLConnection.HTTP_BAD_REQUEST);
+        } catch (MethodNotAllowedException e) {
+            res.setBody(jsonError(e.getMessage()));
+            res.send(HttpURLConnection.HTTP_BAD_METHOD);
         } catch (Exception e) {
             e.printStackTrace();
-            res.setBody("{\"error\": \"" + e.getMessage() + "\"}");
+            res.setBody(jsonError("Internal server error: " + e.getMessage()));
             res.send(HttpURLConnection.HTTP_INTERNAL_ERROR);
         }
     }
@@ -66,11 +65,11 @@ public class VoucherHandler {
     private static void handleGet(String[] parts, Response res) throws IOException {
         if (parts.length == 2 && parts[1].equals("vouchers")) {
             List<Voucher> vouchers = VoucherDAO.getAll();
-            res.setBody(objectMapper.writeValueAsString(vouchers));
+            res.setBody(jsonResponse("Vouchers retrieved successfully", vouchers));
             res.send(HttpURLConnection.HTTP_OK);
         } else if (parts.length == 3 && parts[1].equals("vouchers")) {
             Voucher voucher = getVoucherOrThrow(parts[2]);
-            res.setBody(objectMapper.writeValueAsString(voucher));
+            res.setBody(jsonResponse("Voucher retrieved successfully", voucher));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid GET path");
@@ -83,7 +82,7 @@ public class VoucherHandler {
             Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
             validateVoucher(voucher);
             VoucherDAO.insert(voucher);
-            res.setBody("{\"message\": \"Voucher added successfully\"}");
+            res.setBody(jsonResponse("Voucher added successfully", voucher));
             res.send(HttpURLConnection.HTTP_CREATED);
         } else {
             throw new NotFoundException("Invalid POST path");
@@ -94,11 +93,14 @@ public class VoucherHandler {
     private static void handlePut(String[] parts, Request req, Response res) throws IOException {
         if (parts.length == 3 && parts[1].equals("vouchers")) {
             int id = parseIdOrThrow(parts[2], "voucher");
+            Voucher existing = VoucherDAO.getById(id);
+            if (existing == null) throw new NotFoundException("Voucher not found");
+
             Voucher voucher = objectMapper.readValue(req.getBody(), Voucher.class);
             validateVoucher(voucher);
             voucher.setId(id);
             VoucherDAO.update(voucher);
-            res.setBody("{\"message\": \"Voucher updated successfully\"}");
+            res.setBody(jsonResponse("Voucher updated successfully", voucher));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid PUT path");
@@ -106,13 +108,13 @@ public class VoucherHandler {
     }
 
     // ===================== DELETE =====================
-    private static void handleDelete(String[] parts, Response res) {
+    private static void handleDelete(String[] parts, Response res) throws IOException {
         if (parts.length == 3 && parts[1].equals("vouchers")) {
             int id = parseIdOrThrow(parts[2], "voucher");
             Voucher voucher = VoucherDAO.getById(id);
             if (voucher == null) throw new NotFoundException("Voucher not found");
             VoucherDAO.delete(id);
-            res.setBody("{\"message\": \"Voucher deleted successfully\"}");
+            res.setBody(jsonResponse("Voucher deleted successfully", voucher));
             res.send(HttpURLConnection.HTTP_OK);
         } else {
             throw new NotFoundException("Invalid DELETE path");
@@ -151,5 +153,18 @@ public class VoucherHandler {
         if (voucher.getEndDate() == null || voucher.getEndDate().isBlank()) {
             throw new BadRequestException("End date is required");
         }
+    }
+
+    private static String jsonResponse(String message, Object data) throws IOException {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("message", message);
+        result.put("data", data);
+        return objectMapper.writeValueAsString(result);
+    }
+
+    private static String jsonError(String message) throws IOException {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("error", message);
+        return objectMapper.writeValueAsString(result);
     }
 }
