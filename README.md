@@ -244,7 +244,6 @@ Menampilkan daftar ulasan yang telah diberikan oleh customer <br>
 `http://localhost:8080/customers/{id}/reviews`
 ![image](https://github.com/user-attachments/assets/12a07e64-363c-4236-90e5-3814b24119ef)
 
-
 ### ➕ POST in Customers
 Menambahkan customer baru (registrasi customer) <br>
 `http://localhost:8080/customers`
@@ -268,26 +267,25 @@ Mengubah data seorang customer <br>
 ### 🔍 GET in Vouchers
 Menampilkan daftar semua voucher <br>
 `http://localhost:8080/vouchers`
-![image](https://github.com/user-attachments/assets/fe9d3308-a583-4a0d-9c96-66aefbf210e8)
+![image](https://github.com/user-attachments/assets/cfbb1542-3f81-4101-9f75-a76c1a58ee48)
 
 Menampilkan informasi detail suatu voucher <br>
 `http://localhost:8080/vouchers/{id}`
-![image](https://github.com/user-attachments/assets/a4f7f7e1-6f2b-45a5-a7a4-d837ed9779f1)
+![image](https://github.com/user-attachments/assets/983f1804-3ef6-4769-a842-2a229e4b6f84)
 
 ### ➕ POST in Vouchers
 Membuat voucher baru <br>
 `http://localhost:8080/vouchers`
-![image](https://github.com/user-attachments/assets/0daa0dc5-70e9-45f2-8643-9799878e88c8)
 
 ### ✏️ PUT in Vouchers
 Mengubah data suatu voucher <br>
 `http://localhost:8080/vouchers/{id}`
-![image](https://github.com/user-attachments/assets/f8450af1-bd43-4f32-a2bc-fba082e578c3)
+![image](https://github.com/user-attachments/assets/76b749e7-32f9-45e1-a0f1-c88acb79bfd9)
 
 ### 🗑️ DELETE in Vouchers
 Menghapus data suatu voucher <br>
 `http://localhost:8080/vouchers/{id}`
-![image](https://github.com/user-attachments/assets/9ddfb831-c5b5-4bf8-913a-2b327ed5001b)
+![image](https://github.com/user-attachments/assets/2518cddb-90fb-4b95-b1ce-70178e22a34f)
 
 ---
 
