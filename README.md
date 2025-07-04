@@ -308,6 +308,10 @@ Ketika user mengakses endpoint dengan ID yang tidak valid atau tidak sesuai data
 `http://localhost:8080/villas/test`
 ![Screenshot 2025-07-04 022351](https://github.com/user-attachments/assets/834554a4-65ec-4ab6-8c10-ad177e234309)
 
+### 🚫 Error Response 401
+Ketika user mencoba untuk menjalankan tetapi belum masukkan API key yang berada pada main.java <br>
+![image](https://github.com/user-attachments/assets/49d0ecaf-5f95-4deb-b4ce-8b494b892d53)
+
 ### ❌ Error Response 404
 Ketika melihat informasi detail suatu entitas (seperti pada villa), tetapi ID entitasnya tidak ada <br>
 `http://localhost:8080/villas/{id}`
