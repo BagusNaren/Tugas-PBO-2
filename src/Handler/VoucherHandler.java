@@ -1,5 +1,6 @@
 package Handler;
 
+import MainApp.Main;
 import DAO.VoucherDAO;
 import Model.Voucher;
 import Http.Request;
@@ -22,6 +23,13 @@ public class VoucherHandler {
     public static void handle(HttpExchange exchange) throws IOException {
         Request req = new Request(exchange);
         Response res = new Response(exchange);
+
+        String clientKey = exchange.getRequestHeaders().getFirst("X-API-Key");
+        if (clientKey == null || !clientKey.equals(Main.API_KEY)) {
+            res.setBody(jsonError("Unauthorized: Invalid or missing API key"));
+            res.send(HttpURLConnection.HTTP_UNAUTHORIZED);
+            return;
+        }
 
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
