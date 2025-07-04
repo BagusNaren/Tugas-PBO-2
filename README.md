@@ -167,63 +167,62 @@ Mencoba test GET pada default handler <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
 
+Mencoba test ping pada villa <br>
+` http://localhost:8080/ping`
+![image](https://github.com/user-attachments/assets/4d8ea741-7d7b-43c1-97a5-7504eeda63c0)
 ---
 
 ### 🔍 GET in Villas
 Menampilkan semua daftar villa <br>
 `http://localhost:8080/villas`
-![Screenshot 2025-06-30 122226](https://github.com/user-attachments/assets/ad3e323b-0dca-44a2-b178-ebe07697100e)
-
-Mencoba test ping pada villa <br>
-` http://localhost:8080/ping`
-![image](https://github.com/user-attachments/assets/4d8ea741-7d7b-43c1-97a5-7504eeda63c0)
+![image](https://github.com/user-attachments/assets/509a46f5-1f26-4091-99b7-06f1245b3e95)
 
 Menampilkan villa sesuai dengan ID <br>
 `http://localhost:8080/villas/{id}`
-![image](https://github.com/user-attachments/assets/789674e8-5f6c-4c8a-8f47-7bf1d1a93284)
+![image](https://github.com/user-attachments/assets/06217b10-696d-4eba-9ef4-42c93242e9ec)
 
 Menampilkan isi dari ruangan villa sesuai dengan ID villa <br>
 `http://localhost:8080/villas/{id}/rooms`
-![image](https://github.com/user-attachments/assets/37e4d3c9-a590-425c-93b9-61b71eaa7d08)
+![image](https://github.com/user-attachments/assets/1cea1297-0586-4e96-8bda-2da84ba408f5)
 
 Menampilkan data booking pada villa yang memiliki ID 1 <br>
 `http://localhost:8080/villas/{id}/bookings`
-![image](https://github.com/user-attachments/assets/f27f817e-9855-4d4e-8890-0e4e4a595cfd)
+![image](https://github.com/user-attachments/assets/4cf92ff5-057c-4272-8cb0-b6ae7d5fdf62)
 
 Menampilkan isi review dari villa berdasarkan ID villa <br>
 `http://localhost:8080/villas/{id}/reviews`
-![image](https://github.com/user-attachments/assets/8fef7505-1ed0-4fe3-bb43-3fabb3fc1522)
+![image](https://github.com/user-attachments/assets/7941add1-938b-4e02-8e16-987ac8141596)
 
 Menampilkan info tanggal check-in dan check-out dari data villa booking <br>
 ` http://localhost:8080/villas?ci_date=2025-06-20&co_date=2025-06-25`
-![image](https://github.com/user-attachments/assets/0af394a3-11f7-4495-9419-cd995fc08e0b)
+![image](https://github.com/user-attachments/assets/60d9b549-dd08-4023-9c8c-0f8bc7aa21d0)
 
 ### ➕ POST in Villas
 Menambahkan villa baru <br>
 `http://localhost:8080/villas`
-![image](https://github.com/user-attachments/assets/6f175cbc-a783-4f84-a28c-baaaa208f867)
+![image](https://github.com/user-attachments/assets/86f9267c-7179-47af-b1b8-d9ba929b7cdd)
 
 Menambahkan ruangan villa baru <br>
 `http://localhost:8080/villas/{id}/rooms`
-![image](https://github.com/user-attachments/assets/876661a6-2b0a-42a4-b9c9-c5eea459e34b)
+![image](https://github.com/user-attachments/assets/b1da5181-a3f0-48a2-aceb-701e9144219d)
 
 ### ✏️ PUT in Villas
 Mengubah isi data villa <br>
 `http://localhost:8080/villas/{id}`
-![image](https://github.com/user-attachments/assets/d720a5fb-ec77-4b22-b8cb-351bc79a11e4)
+![image](https://github.com/user-attachments/assets/899afa3e-d935-4cfc-9f8b-c9b7bea3f348)
 
 Mengubah isi data ruangan villa <br>
 `http://localhost:8080/villas/{id}/rooms/{id}`
-![image](https://github.com/user-attachments/assets/dfb04181-5c8e-4064-abad-757e7a6161d0)
+![image](https://github.com/user-attachments/assets/811d0451-9220-46ea-b948-69672794d9b2)
 
 ### 🗑️ DELETE in Villas
 Menghapus ruangan villa <br>
 `http://localhost:8080/villas/{id}/rooms/{id}`
-![image](https://github.com/user-attachments/assets/0ff3e522-b2ad-494b-9bd6-c965f406dc0e)
+![image](https://github.com/user-attachments/assets/f6825632-90c2-4123-9c33-21efe308c1c2)
 
 Menghapus data villa <br>
 `http://localhost:8080/villas/{id}`
-![Screenshot 2025-06-30 165856](https://github.com/user-attachments/assets/c8888e85-7f1d-4e44-a203-b66a6780af5a)
+![image](https://github.com/user-attachments/assets/a526beb1-786c-4e9b-b019-212b398d5518)
 
 ---
 
