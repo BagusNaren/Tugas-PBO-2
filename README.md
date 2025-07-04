@@ -163,12 +163,12 @@ Setelah server berjalan, gunakan Postman untuk menguji API. Berikut adalah dafta
 Aplikasi ini sudah bisa dijalankan pada `localhost:8080`, dan pengujian dilakukan menggunakan Postman untuk mempermudah proses pengujian endpoint. Berikut dokumentasi pada halaman Postman: 
 
 ### 🌐 GET in Default Handler
-Mencoba test GET pada default handler <br>
+Mencoba test GET pada default handler  <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
 
-### 🌐 Test Ping pada Villa
-Mencoba test ping pada villa <br>
+### 🌐 Test Ping pada Postman
+Mencoba test ping menggunakan endpoint `/ping` <br>
 `http://localhost:8080/ping`
 ![image](https://github.com/user-attachments/assets/4d8ea741-7d7b-43c1-97a5-7504eeda63c0)
 
