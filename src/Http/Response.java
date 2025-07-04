@@ -34,7 +34,7 @@ public class Response {
             this.httpExchange.sendResponseHeaders(status, bodyBytes.length);
             this.httpExchange.getResponseBody().write(bodyBytes);
             this.httpExchange.getResponseBody().flush();
-            this.httpExchange.getResponseBody().close(); // pastikan stream ditutup
+            this.httpExchange.getResponseBody().close();
         } catch (IOException ioe) {
             System.err.println("Problem encountered when sending response.");
             ioe.printStackTrace();

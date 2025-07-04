@@ -2,7 +2,7 @@ package Model;
 
 public class Review {
     private int bookingId;
-    private int customerId; // tambahkan ini
+    private int customerId;
     private int star;
     private String title;
     private String content;

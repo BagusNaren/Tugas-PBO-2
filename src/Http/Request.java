@@ -58,7 +58,6 @@ public class Request {
         return jsonMap;
     }
 
-    // untuk ambil query parameter seperti ?ci_date=2025-06-20
     public Map<String, String> getQueryParams() {
         Map<String, String> queryParams = new HashMap<>();
         String query = httpExchange.getRequestURI().getQuery(); // ci_date=2025-06-20&co_date=2025-06-25

@@ -65,7 +65,7 @@ public class Server {
         String path = uri.getPath();
         String method = httpExchange.getRequestMethod();
 
-        // Validasi endpoint tidak dikenali → lempar NotFoundException
+        // Validasi endpoint tidak dikenali
         if (!(path.startsWith("/villas") ||
                 path.startsWith("/customers") ||
                 path.startsWith("/vouchers") ||
