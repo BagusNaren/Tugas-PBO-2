@@ -167,6 +167,10 @@ Mencoba test menggunakan method **GET** pada default handler <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
 
+### 🌐 Test memasukkan API key
+Mencoba test memasukkan API key `tugas-pbo-2` pada postman <br>
+![image](https://github.com/user-attachments/assets/2bac131c-d898-4d7b-a4c6-810770c7448d)
+
 ### 🌐 Test Ping pada Postman
 Mencoba test ping menggunakan endpoint `/ping` <br>
 `http://localhost:8080/ping`
