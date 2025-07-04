@@ -167,9 +167,11 @@ Mencoba test GET pada default handler <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
 
+### 🌐 Test Ping pada Villa
 Mencoba test ping pada villa <br>
-` http://localhost:8080/ping`
+`http://localhost:8080/ping`
 ![image](https://github.com/user-attachments/assets/4d8ea741-7d7b-43c1-97a5-7504eeda63c0)
+
 ---
 
 ### 🔍 GET in Villas
