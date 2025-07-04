@@ -58,15 +58,6 @@ Kelas-kelas ini berfungsi sebagai penghubung antara HTTP request dari client dan
 - `VillaHandler`
 - `VoucherHandler`
 
-#### ➤ `Model`
-Berisi representasi dari setiap entitas di database dalam bentuk class Java, digunakan untuk pertukaran dan pemrosesan data di dalam aplikasi.
-- `Booking`
-- `Customer`
-- `Review`
-- `RoomType`
-- `Villa`
-- `Voucher`
-
 #### ➤ `Http`
 Berisi komponen utama untuk menjalankan server HTTP dan menangani komunikasi client-server:
 - `Request` – Untuk parsing HTTP request dari client.
@@ -80,6 +71,15 @@ Berisi class utama yang digunakan untuk menjalankan aplikasi web server dan meny
   - Menjalankan server HTTP melalui `new Server(port)`
   - Menyimpan API Key dalam bentuk `public static final String` untuk memverifikasi akses client
   - Jika API Key tidak sesuai atau tidak ada pada header API Key pada Postman, maka permintaan akan ditolak dengan response error
+
+#### ➤ `Model`
+Berisi representasi dari setiap entitas di database dalam bentuk class Java, digunakan untuk pertukaran dan pemrosesan data di dalam aplikasi.
+- `Booking`
+- `Customer`
+- `Review`
+- `RoomType`
+- `Villa`
+- `Voucher`
 
 ---
 
@@ -174,7 +174,7 @@ Mencoba test menggunakan method **GET** pada default handler <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
 
-### 🌐 Test memasukkan API key
+### 🌐 Test Memasukkan API Key
 Mencoba test memasukkan API key `tugas-pbo-2` pada postman <br>
 ![image](https://github.com/user-attachments/assets/2bac131c-d898-4d7b-a4c6-810770c7448d)
 
