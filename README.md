@@ -72,7 +72,14 @@ Berisi komponen utama untuk menjalankan server HTTP dan menangani komunikasi cli
 - `Request` – Untuk parsing HTTP request dari client.
 - `Response` – Untuk membentuk HTTP response ke client.
 - `Server` – Untuk menjalankan web server lokal pada port `8080`.
-- `Main` – Class utama untuk mengeksekusi aplikasi.
+
+#### ➤ `MainApp`
+Berisi class utama yang digunakan untuk menjalankan aplikasi web server dan menyimpan API key untuk autentikasi akses ke endpoint:
+- `Main` - Bertindak sebagai entry point aplikasi. Fungsinya sebagai berikut:
+  - Menentukan port server (default `8080` atau mengikuti argumen saat dijalankan)
+  - Menjalankan server HTTP melalui `new Server(port)`
+  - Menyimpan API Key dalam bentuk `public static final String` untuk memverifikasi akses client
+  - Jika API Key tidak sesuai atau tidak ada pada header API Key pada Postman, maka permintaan akan ditolak dengan response error
 
 ---
 
