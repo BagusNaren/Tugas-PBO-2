@@ -70,7 +70,7 @@ Berisi class utama yang digunakan untuk menjalankan aplikasi web server dan meny
   - Menentukan port server (default `8080` atau mengikuti argumen saat dijalankan)
   - Menjalankan server HTTP melalui `new Server(port)`
   - Menyimpan API Key dalam bentuk `public static final String` untuk memverifikasi akses client
-  - Jika API Key tidak sesuai atau tidak ada pada header API Key pada Postman, maka permintaan akan ditolak dengan response error
+  - Jika API Key tidak sesuai atau tidak ada pada header `Authorization` atau `Headers` pada Postman, maka permintaan akan ditolak dengan response error (seperti Error Response 401)
 
 #### ➤ `Model`
 Berisi representasi dari setiap entitas di database dalam bentuk class Java, digunakan untuk pertukaran dan pemrosesan data di dalam aplikasi.
