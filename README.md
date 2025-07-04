@@ -167,6 +167,10 @@ Mencoba test menggunakan method **GET** pada default handler <br>
 `http://localhost:8080/`
 ![Screenshot 2025-06-30 173625](https://github.com/user-attachments/assets/35c4c045-fd8c-47bf-a59c-f2e099286bfc)
 
+### 🌐 Test memasukkan API key
+Mencoba test memasukkan API key `tugas-pbo-2` pada postman <br>
+![image](https://github.com/user-attachments/assets/2bac131c-d898-4d7b-a4c6-810770c7448d)
+
 ### 🌐 Test Ping pada Postman
 Mencoba test ping menggunakan endpoint `/ping` <br>
 `http://localhost:8080/ping`
@@ -307,6 +311,10 @@ Ketika membuat customer, namun data email tidak lengkap <br>
 Ketika user mengakses endpoint dengan ID yang tidak valid atau tidak sesuai data yang tersedia (seperti pada endpoint `/villas/test`), maka sistem akan merespons dengan error response 400 dan pesan "Invalid villa ID" <br>
 `http://localhost:8080/villas/test`
 ![Screenshot 2025-07-04 022351](https://github.com/user-attachments/assets/834554a4-65ec-4ab6-8c10-ad177e234309)
+
+### 🚫 Error Response 401
+Ketika user mencoba untuk menjalankan tetapi belum masukkan API key yang berada pada main.java <br>
+![image](https://github.com/user-attachments/assets/49d0ecaf-5f95-4deb-b4ce-8b494b892d53)
 
 ### ❌ Error Response 404
 Ketika melihat informasi detail suatu entitas (seperti pada villa), tetapi ID entitasnya tidak ada <br>
